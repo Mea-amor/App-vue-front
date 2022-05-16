@@ -7,12 +7,18 @@
       <feed-item v-for="(feed, index) in fakeFeed" :key="index" :feed="feed" />
     </div>
     <div v-if="!isAuthenticated && authStatus !== 'loading'">
-      <h1>Welcome to DogeBook !</h1>
+      <h1>Bienvenue dans la page d'accueil de cette application</h1>
       <p>
-        When meeting new doge friends is harder than ever, Dogebook closes the
-        gap between all paws in the world
+        Dans cette application, vous pouvez faire de l'ajout, de modification,
+        de suppression
       </p>
-      <login />
+      <div>
+        <b-button variant="dark" @click="increment()">{{
+          name_button
+        }}</b-button>
+        <login v-if="loginShow" />
+        <register v-if="!loginShow" />
+      </div>
     </div>
   </div>
 </template>
@@ -30,11 +36,13 @@ import fakeFeed from "./fakeFeed";
 import FeedItem from "./feedItem.vue";
 import { mapGetters } from "vuex";
 import Login from "components/login";
+import Register from "components/register";
 
 export default {
   components: {
     Login,
-    FeedItem
+    FeedItem,
+    Register
   },
   name: "home",
   computed: {
@@ -44,7 +52,22 @@ export default {
     }
   },
   data() {
-    return { fakeFeed };
+    return { fakeFeed, loginShow: true, name_button: "register" };
+  },
+  // actions
+  methods: {
+    increment() {
+      if (this.loginShow) {
+        this.loginShow = false;
+        this.name_button = "login";
+      } else {
+        this.loginShow = true;
+        this.name_button = "register";
+      }
+      console.log(this.loginShow);
+      console.log(this.name_button);
+      this.count++;
+    }
   }
 };
 </script>
