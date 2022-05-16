@@ -14,7 +14,7 @@
         placeholder="Password"
       />
       <hr />
-      <button type="submit">Login</button>
+      <button type="submit" class="btn btn-danger">Login</button>
     </form>
   </div>
 </template>
