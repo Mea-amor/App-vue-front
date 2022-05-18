@@ -1,6 +1,9 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "components/home";
+import Etudiant from "components/etudiant";
+import Matiere from "components/matiere";
+import Professeur from "components/professeur";
 import Account from "components/account";
 import Login from "components/login";
 import store from "../store";
@@ -30,6 +33,21 @@ export default new Router({
       path: "/",
       name: "Home",
       component: Home
+    },
+    {
+      path: "/etudiant",
+      name: "Etudiant",
+      component: Etudiant
+    },
+    {
+      path: "/matiere",
+      name: "Matiere",
+      component: Matiere
+    },
+    {
+      path: "/professeur",
+      name: "Professeur",
+      component: Professeur
     },
     {
       path: "/account",

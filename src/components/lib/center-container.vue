@@ -1,7 +1,8 @@
 /** * Created by vouill on 11/14/17. */
 
 <template>
-  <div class="center-container">
+  <div class="center-container" :class="{ center: noHome }">
+    <sidebar v-if="currentRouteName.toLowerCase() != 'home'" />
     <slot />
   </div>
 </template>
@@ -10,12 +11,34 @@
 .center-container {
   display: flex;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
+}
+.center {
+  justify-content: center;
 }
 </style>
 
 <script>
+import Sidebar from "components/sidebar";
 export default {
-  name: "center-container"
+  data: function() {
+    return { noHome: false };
+  },
+  components: {
+    Sidebar
+  },
+  name: "center-container",
+  computed: {
+    currentRouteName() {
+      if (this.$route.name === "Home") {
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this.noHome = true;
+      } else {
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this.noHome = false;
+      }
+      return this.$route.name;
+    }
+  }
 };
 </script>

@@ -1,6 +1,8 @@
 <template>
   <div id="app">
+    <vue-snotify></vue-snotify>
     <navigation />
+
     <div class="main-container">
       <center-container>
         <router-view />

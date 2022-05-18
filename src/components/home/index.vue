@@ -3,11 +3,14 @@
 <template>
   <div>
     <loading v-if="loading" />
+    <!-- <notify /> -->
     <div v-if="isAuthenticated">
       <feed-item v-for="(feed, index) in fakeFeed" :key="index" :feed="feed" />
     </div>
     <div v-if="!isAuthenticated && authStatus !== 'loading'">
-      <h1>Bienvenue dans la page d'accueil de cette application</h1>
+      <h1>
+        Bienvenue dans la page d'accueil de cette application
+      </h1>
       <p>
         Dans cette application, vous pouvez faire de l'ajout, de modification,
         de suppression
@@ -36,6 +39,7 @@ import fakeFeed from "./fakeFeed";
 import FeedItem from "./feedItem.vue";
 import { mapGetters } from "vuex";
 import Login from "components/login";
+import Notify from "components/notification";
 import Register from "components/register";
 
 export default {
@@ -43,6 +47,7 @@ export default {
     Login,
     FeedItem,
     Register
+    // Notify
   },
   name: "home",
   computed: {
@@ -64,9 +69,6 @@ export default {
         this.loginShow = true;
         this.name_button = "register";
       }
-      console.log(this.loginShow);
-      console.log(this.name_button);
-      this.count++;
     }
   }
 };

@@ -6,13 +6,13 @@
     <form class="register flex-grow-1" @submit.prevent="register">
       <h1>S'enregistrer</h1>
       <label for="exampleFormControlInput1" class="form-label"
-        >Nom d'utilsateur</label
+        >Email de l'utilsateur</label
       >
       <input
         required
         v-model="username"
         type="text"
-        placeholder="Snoopy"
+        placeholder="exemple@gmail.com"
         class="form-control"
         id="exampleFormControlInput1"
       />
@@ -21,7 +21,7 @@
         required
         v-model="password"
         type="password"
-        placeholder="Password"
+        placeholder="Mot de passe"
         class="form-control"
       />
       <label class="form-label">Confirmation Mot de passe</label>
@@ -54,22 +54,42 @@
 
 <script>
 import { AUTH_REQUEST } from "actions/auth";
+import http from "../../utils/http-common";
 
 export default {
   name: "register",
   data() {
     return {
-      username: "dogo",
-      password: "dogy",
+      username: "",
+      password: "",
       conf_password: ""
     };
   },
   methods: {
-    register: function() {
-      const { username, password } = this;
-      this.$store.dispatch(AUTH_REQUEST, { username, password }).then(() => {
-        this.$router.push("/");
-      });
+    register: async function() {
+      const { username, password, conf_password } = this;
+      const postData = {
+        email: username,
+        password: password,
+        c_password: conf_password
+      };
+      if (postData.password != postData.c_password) return;
+      else {
+        try {
+          console.log("Active");
+          const res = await http.post("/register", postData);
+          console.log("Not Active");
+
+          // const result = {
+          //   status: res.status + "-" + res.statusText,
+          //   headers: res.headers,
+          //   data: res.data
+          // };
+          console.log(res);
+        } catch (err) {
+          console.log(err);
+        }
+      }
     }
   }
 };
