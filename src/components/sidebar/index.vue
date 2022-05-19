@@ -9,7 +9,7 @@
       <svg class="bi me-2" width="40" height="32">
         <use xlink:href="#bootstrap"></use>
       </svg>
-      <span class="fs-4">Sidebar</span>
+      <span class="fs-4">Gestion</span>
     </a>
     <hr />
     <ul class="nav nav-pills flex-column mb-auto">
@@ -70,7 +70,6 @@ export default {
 </script>
 <style>
 .desgin-personalize {
-  margin-right: 20px;
   width: 280px;
   height: 566px;
 }

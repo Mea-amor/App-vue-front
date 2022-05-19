@@ -88,22 +88,20 @@ export default {
         const result = {
           status: res.status + "-" + res.statusText,
           headers: res.headers,
-          data: res.data
+          data: res.data.data
         };
+        if (result.data.token) {
+          localStorage.setItem("user", JSON.stringify(result.data));
+        }
         console.log(result);
         this.Invalid = false;
       } catch (err) {
         console.log(err);
         this.Invalid = true;
       }
-      // this.$store.dispatch(AUTH_REQUEST, { username, password }).then(() => {
-      //   this.$router.push("/");
-      // });
     },
 
-    clearPostOutput() {
-      // this.postResult = null;
-    }
+    clearPostOutput() {}
   }
 };
 </script>

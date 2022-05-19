@@ -2,7 +2,7 @@
 
 <template>
   <div class="center-container" :class="{ center: noHome }">
-    <sidebar v-if="currentRouteName.toLowerCase() != 'home'" />
+    <sidebar v-if="currentRouteName != 'Home'" />
     <slot />
   </div>
 </template>
