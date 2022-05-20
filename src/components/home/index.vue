@@ -3,7 +3,7 @@
 <template>
   <div>
     <loading v-if="loading" />
-    <!-- <notify /> -->
+
     <div v-if="isAuthenticated">
       <feed-item v-for="(feed, index) in fakeFeed" :key="index" :feed="feed" />
     </div>
@@ -16,7 +16,15 @@
         de suppression
       </p>
       <div>
-        <b-button variant="dark" @click="increment()">{{
+        <!--   @click="
+            $store.dispatch('addToFavorites', {
+              status: true,
+              message: 'Vous ête maintenant connécté',
+              nameIcon: 'SuccessIcon.png',
+              success: true
+            })
+          "  @click="toogleSign()"-->
+        <b-button variant="dark" @click="toogleSign()">{{
           name_button
         }}</b-button>
         <login v-if="loginShow" />
@@ -39,7 +47,8 @@ import fakeFeed from "./fakeFeed";
 import FeedItem from "./feedItem.vue";
 import { mapGetters } from "vuex";
 import Login from "components/login";
-import Notify from "components/notification";
+// import { mapState } from "vuex";
+
 import Register from "components/register";
 
 export default {
@@ -47,11 +56,11 @@ export default {
     Login,
     FeedItem,
     Register
-    // Notify
   },
   name: "home",
   computed: {
-    ...mapGetters(["isAuthenticated", "authStatus"]),
+    ...mapGetters(["getnotify", "isAuthenticated", "authStatus"]),
+    // ...mapGetters([),
     loading: function() {
       return this.authStatus === "loading" && !this.isAuthenticated;
     }
@@ -61,7 +70,7 @@ export default {
   },
   // actions
   methods: {
-    increment() {
+    toogleSign() {
       if (this.loginShow) {
         this.loginShow = false;
         this.name_button = "login";

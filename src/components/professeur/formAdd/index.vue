@@ -1,35 +1,35 @@
 <template>
   <div class="backform">
-    <form class="login login-add" @submit.prevent="addAndUpdEtudiant">
-      <h1>{{ nametitle }} d'un etudiant</h1>
+    <form class="login login-add" @submit.prevent="addAndUpdProfesseur">
+      <h1>{{ nametitle }} d'un professeur</h1>
       <label for="exampleFormControlInput1" class="form-label"
-        >Numero etudiant</label
+        >Numero professeur</label
       >
       <input
         required
         v-model="numero"
         type="text"
-        placeholder="Numero etudiant"
+        placeholder="Numero professeur"
         class="form-control"
         id="exampleFormControlInput1"
       />
-      <label class="form-label">Nom etudiant</label>
+      <label class="form-label">Nom professeur</label>
       <input
         required
         v-model="name"
         type="text"
-        placeholder="Nom etudiant"
+        placeholder="Nom professeur"
         class="form-control"
       />
-      <label class="form-label">sexe</label>
+      <label class="form-label">categorie</label>
       <select
         class="form-select"
-        v-model="sexe"
+        v-model="categorie"
         aria-label="Default select example"
       >
         <option disabled value="">...</option>
-        <option value="masculin">Masculin</option>
-        <option value="feminin">Feminin</option>
+        <option value="A">A</option>
+        <option value="B">B</option>
       </select>
       <!-- <div class="text-danger " v-if="Invalid">
         Email ou mot de passe invalide
@@ -64,40 +64,44 @@
 }
 </style>
 <script>
-import EtudiantDataService from "../../../api/EtudiantDataService";
+import ProfesseurDataService from "../../../api/ProfesseurDataService";
 
 export default {
   props: {
-    etudiants: Array,
+    professeurs: Array,
     currentIndex: Array
   },
-  name: "addEtudiant",
+  name: "addProfesseur",
   data() {
     return {
       name: "",
       numero: "",
-      sexe: "",
+      categorie: "",
       namebtn: "Enregistrer",
       nametitle: ""
     };
   },
   methods: {
-    addAndUpdEtudiant: async function() {
-      const { name, numero, sexe } = this;
+    addAndUpdProfesseur: async function() {
+      const { name, numero, categorie } = this;
       var data = {
         name: name,
         numero: numero,
-        sexe: sexe,
-        img: "testimg"
+        categorie: categorie
       };
+      console.log(data, " in categorie");
       if (this.nametitle === "Modication") {
-        EtudiantDataService.update(this.currentIndex[1], data)
+        ProfesseurDataService.update(this.currentIndex[1], data)
           .then(response => {
             console.log(response.data.data);
-            this.etudiants.splice(this.currentIndex[0], 1, response.data.data);
+            this.professeurs.splice(
+              this.currentIndex[0],
+              1,
+              response.data.data
+            );
             this.$store.dispatch("addToFavorites", {
               status: true,
-              message: "Modification etudiant avec succée",
+              message: "Modificatin Professeur avec succée",
               nameIcon: "SuccessIcon.png",
               success: true
             });
@@ -106,12 +110,12 @@ export default {
             console.log(e);
           });
       } else {
-        EtudiantDataService.create(data)
+        ProfesseurDataService.create(data)
           .then(response => {
-            this.etudiants.push(response.data.data);
+            this.professeurs.push(response.data.data);
             this.$store.dispatch("addToFavorites", {
               status: true,
-              message: "Ajout etudiant avec succée",
+              message: "Ajout Professeur avec succée",
               nameIcon: "SuccessIcon.png",
               success: true
             });
@@ -121,7 +125,7 @@ export default {
           });
       }
       this.$emit("newValue", false);
-      this.$router.push("/etudiant");
+      // this.$router.push("/professeur");
     },
     getByidEtudiant: async function() {},
     cancel: function() {
@@ -130,12 +134,12 @@ export default {
   },
   mounted() {
     if (this.currentIndex) {
-      const found = this.etudiants.find(
+      const found = this.professeurs.find(
         element => element.id === this.currentIndex[1]
       );
       this.name = found.name;
       this.numero = found.numero;
-      this.sexe = found.sexe;
+      this.categorie = found.categorie;
       this.namebtn = "Modifier";
       this.nametitle = "Modication";
     } else {
