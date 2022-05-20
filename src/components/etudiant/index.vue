@@ -1,47 +1,59 @@
+<style>
+@import "../../assets/styles/table-custom.css";
+</style>
 <template>
   <div class="back">
     <div class="table-div seconBack">
-      <button class="btn btn-success " @click="showAddFunction">
-        <router-link to="/etudiant/addEtudiant"
-          >Ajout d'un etudiant</router-link
-        >
+      <button class="btn btn-success btn-pers" @click="showAddFunction">
+        Ajout d'un etudiant
+        <font-awesome-icon icon="fa-solid fa-add" style="color:white" />
       </button>
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Numero</th>
-            <th scope="col">Name</th>
-            <th scope="col">Sexe</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(etudiant, index) in etudiants" :key="index">
-            <th scope="row">{{ etudiant.id }}</th>
-            <td>{{ etudiant.numero }}</td>
-            <td>{{ etudiant.name }}</td>
-            <td>{{ etudiant.sexe }}</td>
-            <td>
-              <button
-                class="btn btn-success"
-                @click="takeIndex(index, etudiant.id)"
-              >
-                <router-link to="/etudiant/addEtudiant">
+      <div class="bg-table">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="ol">Id</th>
+              <th scope="col">Numero</th>
+              <th scope="col">Name</th>
+              <th scope="col">Sexe</th>
+              <th scope="col" style="text-align: center;">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(etudiant, index) in etudiants" :key="index">
+              <th scope="row">{{ etudiant.id }}</th>
+              <td>{{ etudiant.numero }}</td>
+              <td>{{ etudiant.name }}</td>
+              <td>{{ etudiant.sexe }}</td>
+              <td class="td-pers">
+                <button
+                  class="btn btn-success btn-sm btn-pers"
+                  @click="takeIndex(index, etudiant.id)"
+                >
+                  <font-awesome-icon
+                    icon="fa-solid fa-pencil"
+                    style="color:white"
+                  />
                   Modifier
-                </router-link>
-              </button>
-              <button
-                class="btn btn-danger"
-                @click="destroyOne(index, etudiant.id)"
-              >
-                Supprimer
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                </button>
+                <button
+                  class="btn btn-danger btn-sm btn-pers"
+                  @click="destroyOne(index, etudiant.id)"
+                >
+                  <font-awesome-icon
+                    icon="fa-solid fa-trash-can"
+                    style="color:white"
+                  />
+                  Supprimer
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <loading v-if="isLoading" />
+      </div>
     </div>
+
     <!-- <router-view></router-view> -->
     <addEtudiant
       :etudiants="etudiants"
@@ -51,23 +63,15 @@
     />
   </div>
 </template>
-<style>
-.back {
-  background: rgb(255, 255, 255);
-  width: 100%;
-  height: 567px;
-  position: relative;
-}
-.seconBack {
-  padding: 8px 14px 0px 14px;
-}
-</style>
+
 <script>
 import EtudiantDataService from "../../api/EtudiantDataService";
 import AddEtudiant from "./formAdd";
+import Loading from "../loading";
 export default {
   components: {
-    AddEtudiant
+    AddEtudiant,
+    Loading
   },
   name: "etudiant",
   data() {
@@ -75,15 +79,17 @@ export default {
       etudiants: [],
       currentEtudiant: null,
       currentIndex: null,
-      showAdd: false
+      showAdd: false,
+      isLoading: false
     };
   },
   methods: {
     retrieveEtudiant() {
+      this.isLoading = true;
       EtudiantDataService.getAll()
         .then(response => {
           this.etudiants = response.data.data;
-          console.log(response.data);
+          this.isLoading = false;
         })
         .catch(e => {
           console.log(e);
@@ -103,6 +109,12 @@ export default {
       EtudiantDataService.delete(etudiantId)
         .then(resp => {
           this.etudiants.splice(index, 1);
+          this.$store.dispatch("addToFavorites", {
+            status: true,
+            message: "Suppression etudiant avec succée",
+            nameIcon: "SuccessIcon.png",
+            success: false
+          });
         })
         .catch(e => {
           console.log(e);

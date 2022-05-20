@@ -32,6 +32,9 @@
         placeholder="Confirme mot de passe"
         class="form-control"
       />
+      <div class="text-danger " v-if="Invalid">
+        Confirmation d mot de passe invalide
+      </div>
       <hr />
       <button type="submit" class="btn btn-danger">Enregistrer</button>
     </form>
@@ -62,7 +65,8 @@ export default {
     return {
       username: "",
       password: "",
-      conf_password: ""
+      conf_password: "",
+      Invalid: false
     };
   },
   methods: {
@@ -73,12 +77,18 @@ export default {
         password: password,
         c_password: conf_password
       };
-      if (postData.password != postData.c_password) return;
+      if (postData.password != postData.c_password) this.Invalid = true;
       else {
         try {
           console.log("Active");
           const res = await http.post("/register", postData);
           console.log("Not Active");
+          this.$store.dispatch("addToFavorites", {
+            status: true,
+            message: "Ajout d'un utilisateur avec succé",
+            nameIcon: "SuccessIcon.png",
+            success: true
+          });
 
           // const result = {
           //   status: res.status + "-" + res.statusText,

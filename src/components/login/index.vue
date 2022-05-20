@@ -95,13 +95,23 @@ export default {
         }
         console.log(result);
         this.Invalid = false;
+        this.$store.dispatch("addToFavorites", {
+          status: true,
+          message: "Vous ête maintenant connecté",
+          nameIcon: "SuccessIcon.png",
+          success: true
+        });
+        this.clearPostOutput();
       } catch (err) {
         console.log(err);
         this.Invalid = true;
       }
     },
 
-    clearPostOutput() {}
+    clearPostOutput() {
+      this.username = "";
+      this.password = "";
+    }
   }
 };
 </script>

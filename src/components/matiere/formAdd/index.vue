@@ -1,9 +1,9 @@
 <template>
   <div class="backform">
-    <form class="login login-add" @submit.prevent="addAndUpdEtudiant">
-      <h1>{{ nametitle }} d'un etudiant</h1>
+    <form class="login login-add" @submit.prevent="addAndUpdMatiere">
+      <h1>{{ nametitle }} d'un matiere</h1>
       <label for="exampleFormControlInput1" class="form-label"
-        >Numero etudiant</label
+        >Numero matiere</label
       >
       <input
         required
@@ -13,24 +13,21 @@
         class="form-control"
         id="exampleFormControlInput1"
       />
-      <label class="form-label">Nom etudiant</label>
+      <label class="form-label">Libelle matiere</label>
       <input
         required
-        v-model="name"
+        v-model="libelle"
         type="text"
         placeholder="Nom etudiant"
         class="form-control"
       />
-      <label class="form-label">sexe</label>
-      <select
-        class="form-select"
-        v-model="sexe"
-        aria-label="Default select example"
-      >
-        <option disabled value="">...</option>
-        <option value="masculin">Masculin</option>
-        <option value="feminin">Feminin</option>
-      </select>
+      <label class="form-label">coefficient</label>
+      <input
+        required
+        v-model="coefficient"
+        type="number"
+        class="form-control"
+      />
       <!-- <div class="text-danger " v-if="Invalid">
         Email ou mot de passe invalide
       </div> -->
@@ -64,78 +61,66 @@
 }
 </style>
 <script>
-import EtudiantDataService from "../../../api/EtudiantDataService";
+import MatiereDataService from "../../../api/MatiereDataService";
 
 export default {
   props: {
-    etudiants: Array,
+    matieres: Array,
     currentIndex: Array
   },
-  name: "addEtudiant",
+  libelle: "addMatiere",
   data() {
     return {
-      name: "",
       numero: "",
-      sexe: "",
+      libelle: "",
       namebtn: "Enregistrer",
-      nametitle: ""
+      nametitle: "",
+      coefficient: 0
     };
   },
   methods: {
-    addAndUpdEtudiant: async function() {
-      const { name, numero, sexe } = this;
+    addAndUpdMatiere: async function() {
+      const { libelle, numero, coefficient } = this;
       var data = {
-        name: name,
+        libelle: libelle,
         numero: numero,
-        sexe: sexe,
-        img: "testimg"
+        coefficient: coefficient
       };
       if (this.nametitle === "Modication") {
-        EtudiantDataService.update(this.currentIndex[1], data)
+        MatiereDataService.update(this.currentIndex[1], data)
           .then(response => {
             console.log(response.data.data);
-            this.etudiants.splice(this.currentIndex[0], 1, response.data.data);
-            this.$store.dispatch("addToFavorites", {
-              status: true,
-              message: "Modification etudiant avec succée",
-              nameIcon: "SuccessIcon.png",
-              success: true
-            });
+            this.matieres.splice(this.currentIndex[0], 1, response.data.data);
           })
           .catch(e => {
             console.log(e);
           });
       } else {
-        EtudiantDataService.create(data)
+        MatiereDataService.create(data)
           .then(response => {
-            this.etudiants.push(response.data.data);
-            this.$store.dispatch("addToFavorites", {
-              status: true,
-              message: "Ajout etudiant avec succée",
-              nameIcon: "SuccessIcon.png",
-              success: true
-            });
+            this.matieres.push(response.data.data);
           })
           .catch(e => {
             console.log(e);
           });
       }
+      console.log("test");
       this.$emit("newValue", false);
-      this.$router.push("/etudiant");
+      // this.$router.push("/matiere");
     },
-    getByidEtudiant: async function() {},
+    getByidMatiere: async function() {},
     cancel: function() {
       this.$emit("newValue", false);
     }
   },
   mounted() {
     if (this.currentIndex) {
-      const found = this.etudiants.find(
+      const found = this.matieres.find(
         element => element.id === this.currentIndex[1]
       );
-      this.name = found.name;
+      this.libelle = found.libelle;
       this.numero = found.numero;
-      this.sexe = found.sexe;
+      this.coefficient = found.coefficient;
       this.namebtn = "Modifier";
       this.nametitle = "Modication";
     } else {

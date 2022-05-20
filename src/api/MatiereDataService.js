@@ -1,4 +1,4 @@
-import http from "../http-common";
+import http from "../utils/http-common";
 class MatiereDataService {
   getAll() {
     return http.get("/matiere");
