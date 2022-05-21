@@ -16,14 +16,6 @@
         de suppression
       </p>
       <div>
-        <!--   @click="
-            $store.dispatch('addToFavorites', {
-              status: true,
-              message: 'Vous ête maintenant connécté',
-              nameIcon: 'SuccessIcon.png',
-              success: true
-            })
-          "  @click="toogleSign()"-->
         <b-button variant="dark" @click="toogleSign()">{{
           name_button
         }}</b-button>
@@ -47,7 +39,6 @@ import fakeFeed from "./fakeFeed";
 import FeedItem from "./feedItem.vue";
 import { mapGetters } from "vuex";
 import Login from "components/login";
-// import { mapState } from "vuex";
 
 import Register from "components/register";
 
@@ -60,7 +51,6 @@ export default {
   name: "home",
   computed: {
     ...mapGetters(["getnotify", "isAuthenticated", "authStatus"]),
-    // ...mapGetters([),
     loading: function() {
       return this.authStatus === "loading" && !this.isAuthenticated;
     }

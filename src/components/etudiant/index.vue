@@ -53,8 +53,6 @@
         <loading v-if="isLoading" />
       </div>
     </div>
-
-    <!-- <router-view></router-view> -->
     <addEtudiant
       :etudiants="etudiants"
       :currentIndex="currentIndex"

@@ -29,40 +29,27 @@
         >
         <!-- faUserGraduate -->
       </li>
-      <li class="d-flex ps-3" @click="ActiveLink(1)">
+      <li class="d-flex ps-3">
         <font-awesome-icon
           icon="fa-solid fa-user"
           style="position: relative;
 "
         />
-        <router-link to="/professeur" class="nav-link text-white">
+        <router-link to="/professeur" class=" text-white">
           Professeur</router-link
         >
       </li>
-      <li
-        class="d-flex ps-3"
-        @click="ActiveLink(2)"
-        :class="{ 'bg-liActive': currentLink[3] }"
-      >
+      <li class="d-flex ps-3">
         <font-awesome-icon
           icon="fa-solid fa-user-graduate"
           style="position: relative;
 "
         />
-        <router-link to="/etudiant" class="nav-link text-white">
-          Etudiant</router-link
-        >
+        <router-link to="/etudiant" class="text-white"> Etudiant</router-link>
       </li>
       <li class="d-flex ps-3">
-        <!-- { 'bg-liActive': currentLink[3] } -->
-        <font-awesome-icon
-          icon="fa-solid fa-book"
-          style="position: relative;
-"
-        />
-        <router-link to="/matiere" class="nav-link text-white"
-          >Matiere</router-link
-        >
+        <font-awesome-icon icon="fa-solid fa-book" />
+        <router-link to="/matiere" class=" text-white">Matiere </router-link>
       </li>
     </ul>
     <hr />
@@ -81,7 +68,7 @@
           height="32"
           class="rounded-circle me-2"
         />
-        <strong>mdo</strong>
+        <strong>mdo </strong>
       </a>
       <ul
         class="dropdown-menu dropdown-menu-dark text-small shadow"
@@ -101,39 +88,17 @@ export default {
   name: "sidebar",
   data() {
     return {
-      currentLink: [false, false, false, false],
-      showAdd: false,
-      islink0: true,
-      islink1: true,
-      islink2: true,
-      islink3: true
+      showAdd: false
     };
   },
-  computed: {
-    classObject: function() {
-      return {
-        "bg-liActive": this.islink0
-
-        // 'text-danger': this.error && this.error.type === 'fatal'
-      };
-    }
-  },
-  methods: {
-    ActiveLink(index) {
-      // console.log("testestestest");
-      this.isActive = false;
-      // let i = 0;
-      // for (i; i < this.currentLink.length; i++) {
-      //   if (i != index) {
-      //     this.currentLink[i] = false;
-      //   } else this.currentLink[i] = true;
-      // }
-      // console.log(this.currentLink);
-    }
-  }
+  computed: {},
+  methods: {}
 };
 </script>
 <style>
+a.router-link-exact-active {
+  background-color: #dfdfdf;
+}
 .desgin-personalize {
   width: 280px;
   height: 566px;

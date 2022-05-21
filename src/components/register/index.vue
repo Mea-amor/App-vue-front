@@ -33,10 +33,10 @@
         class="form-control"
       />
       <div class="text-danger " v-if="Invalid">
-        Confirmation d mot de passe invalide
+        Confirmation de mot de passe invalide
       </div>
       <hr />
-      <button type="submit" class="btn btn-danger">Enregistrer</button>
+      <button type="submit" class="btn btn-success">Enregistrer</button>
     </form>
   </div>
 </template>
