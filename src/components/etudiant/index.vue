@@ -53,6 +53,54 @@
           </tbody>
         </table>
         <loading v-if="isLoading" />
+        <!-- <div class="mb-3">
+          Items per Page:
+          <select v-model="pageSize" @change="handlePageSizeChange($event)">
+            <option v-for="size in pageSizes" :key="size" :value="size">
+              {{ size }}
+            </option>
+          </select>
+        </div> -->
+        <div class="mt-3">
+          <!-- <div class="mb-3">
+              Items per Page:
+              <select v-model="perPage" @change="handlePageSizeChange($event)">
+                <option v-for="size in pageSizes" :key="size" :value="size">
+                  {{ size }}
+                </option>
+              </select>
+            </div> -->
+          <b-pagination
+            v-model="currentPage"
+            :total-rows="rows"
+            :per-page="perPage"
+            last-number
+            @change="handlePageChange"
+          ></b-pagination>
+          <!-- <b-pagination
+            v-model="currentPage"
+            :total-rows="rows"
+            :per-page="perPage"
+            first-number
+            last-number
+          ></b-pagination> -->
+          <div class="mb-3">
+            Items per Page:
+            <select v-model="perPage" @change="handlePageSizeChange($event)">
+              <option v-for="size in pageSizes" :key="size" :value="size">
+                {{ size }}
+              </option>
+            </select>
+          </div>
+          <p class="mt-3">Current Page: {{ currentPage }}</p>
+          <b-table
+            id="my-table"
+            :items="items"
+            :per-page="perPage"
+            :current-page="currentPage"
+            small
+          ></b-table>
+        </div>
       </div>
     </div>
     <addEtudiant
@@ -79,19 +127,47 @@ export default {
   data() {
     return {
       etudiants: [],
+
       currentEtudiant: null,
       currentIndex: null,
       showAdd: false,
       isLoading: false,
-      isDelete: false
+      isDelete: false,
+      perPage: 5,
+      pageSizes: [5, 10, 15, 20, 30, 50, 100],
+      currentPage: 1,
+      items: [
+        { id: 1, first_name: "Fred", last_name: "Flintstone" },
+        { id: 2, first_name: "Wilma", last_name: "Flintstone" },
+        { id: 3, first_name: "Barney", last_name: "Rubble" },
+        { id: 4, first_name: "Betty", last_name: "Rubble" },
+        { id: 5, first_name: "Pebbles", last_name: "Flintstone" },
+        { id: 6, first_name: "Bamm Bamm", last_name: "Rubble" },
+        { id: 7, first_name: "The Great", last_name: "Gazzoo" },
+        { id: 8, first_name: "Rockhead", last_name: "Slate" },
+        { id: 9, first_name: "Pearl", last_name: "Slaghoople" }
+      ]
     };
   },
   methods: {
+    getRequestParams(page, pageSize) {
+      let params = {};
+      if (page) {
+        params["page"] = page;
+      }
+      if (pageSize) {
+        params["size"] = pageSize;
+      }
+      return params;
+    },
     retrieveEtudiant() {
+      const params = this.getRequestParams(this.currentPage, this.perPage);
+      console.log("params : ", params);
       this.isLoading = true;
       EtudiantDataService.getAll()
         .then(response => {
-          this.etudiants = response.data.data;
+          // this.etudiants = response.data.data;
+          console.log(response);
           this.isLoading = false;
         })
         .catch(e => {
@@ -129,6 +205,22 @@ export default {
         .catch(e => {
           console.log(e);
         });
+    },
+
+    handlePageChange(value) {
+      this.currentPage = value;
+      console.log(this.currentPage);
+      // this.retrieveTutorials();
+    },
+    handlePageSizeChange(event) {
+      this.pageSize = event.target.value;
+      this.page = 1;
+      // this.retrieveTutorials();
+    }
+  },
+  computed: {
+    rows() {
+      return this.items.length;
     }
   },
   mounted() {

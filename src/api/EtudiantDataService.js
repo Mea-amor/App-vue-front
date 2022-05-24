@@ -1,7 +1,8 @@
 import http from "../utils/http-common";
 class EtudiantDataService {
-  getAll() {
-    return http.get("/etudiant");
+  getAll(params) {
+    console.log("test : ", params);
+    return http.get("/etudiant", { params });
   }
   get(id) {
     return http.get(`/etudiant/${id}`);
