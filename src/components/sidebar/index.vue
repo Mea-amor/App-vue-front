@@ -2,55 +2,62 @@
   <div
     class="d-flex flex-column flex-shrink-0 p-0 text-white bg-dark desgin-personalize"
   >
-    <a
-      href="/"
-      class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
-    >
-      <svg class="bi me-2" width="40" height="32">
-        <use xlink:href="#bootstrap"></use>
-      </svg>
-      <span class="fs-4">
-        <font-awesome-icon
-          icon="fa-solid fa-book"
-          style="position: relative;"
-        />Gestion</span
+    <div class="bg-div">
+      <a
+        href="/"
+        class="d-flex  mb-md-0 me-md-auto text-white text-decoration-none"
       >
-    </a>
+        <svg class="bi me-2" width="40" height="32">
+          <use xlink:href="#bootstrap"></use>
+        </svg>
+        <span class="fs-4">
+          <font-awesome-icon
+            icon="fa-solid fa-book"
+            style="position: relative;"
+          />Gestion</span
+        >
+      </a>
+    </div>
     <hr />
-    <ul class="nav nav-pills flex-column mb-auto">
-      <li class="nav-item d-flex ps-3" @click="ActiveLink(0)">
-        <font-awesome-icon
-          icon="fa-solid fa-house"
-          style="position: relative;
+    <ul class="nav nav-pills flex-column mb-auto lipers" style="width:100%">
+      <router-link to="/" class=" text-white">
+        <li class=" d-flex ps-3">
+          <font-awesome-icon
+            icon="fa-solid fa-house"
+            style="position: relative;
 "
-        />
-        <router-link to="/" class="nav-link text-white"
-          ><i class="fa-regular fa-house"></i> Home</router-link
-        >
-        <!-- faUserGraduate -->
-      </li>
-      <li class="d-flex ps-3">
-        <font-awesome-icon
-          icon="fa-solid fa-user"
-          style="position: relative;
+          />
+          Home
+
+          <!-- faUserGraduate -->
+        </li>
+      </router-link>
+      <router-link to="/professeur" class=" text-white">
+        <li class="d-flex ps-3">
+          <font-awesome-icon
+            icon="fa-solid fa-user"
+            style="position: relative;
 "
-        />
-        <router-link to="/professeur" class=" text-white">
-          Professeur</router-link
-        >
-      </li>
-      <li class="d-flex ps-3">
-        <font-awesome-icon
-          icon="fa-solid fa-user-graduate"
-          style="position: relative;
+          />
+          Professeur
+        </li>
+      </router-link>
+      <router-link to="/etudiant" class="text-white">
+        <li class="d-flex ps-3">
+          <font-awesome-icon
+            icon="fa-solid fa-user-graduate"
+            style="position: relative;
 "
-        />
-        <router-link to="/etudiant" class="text-white"> Etudiant</router-link>
-      </li>
-      <li class="d-flex ps-3">
-        <font-awesome-icon icon="fa-solid fa-book" />
-        <router-link to="/matiere" class=" text-white">Matiere </router-link>
-      </li>
+          />
+          Etudiant
+        </li>
+      </router-link>
+      <router-link to="/matiere" class=" text-white">
+        <li class="d-flex ps-3">
+          <font-awesome-icon icon="fa-solid fa-book" />
+          Matiere
+        </li>
+      </router-link>
     </ul>
     <hr />
     <div class="dropdown">
@@ -96,9 +103,6 @@ export default {
 };
 </script>
 <style>
-a.router-link-exact-active {
-  background-color: #dfdfdf;
-}
 .desgin-personalize {
   width: 280px;
   height: 566px;
@@ -108,5 +112,20 @@ a.router-link-exact-active {
 }
 .bg-liActive {
   background: #2f353a91;
+}
+.lipers li {
+  height: 45px;
+  gap: 16px;
+}
+.lipers a.router-link-exact-active {
+  background-color: #87878726;
+}
+.lipers a {
+  text-decoration: none;
+}
+.bg-div {
+  width: 100%;
+  height: 8%;
+  display: flex;
 }
 </style>

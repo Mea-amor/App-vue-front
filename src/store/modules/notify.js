@@ -9,7 +9,6 @@ const getters = {
 
 const actions = {
   addToFavorites(context, payload) {
-    console.log("Payload : ", payload);
     context.commit("UPDATE_STATUS", payload);
   }
 };

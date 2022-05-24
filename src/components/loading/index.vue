@@ -5,6 +5,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #ffffff21;
 }
 </style>
 <template>

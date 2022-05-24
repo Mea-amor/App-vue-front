@@ -21,16 +21,16 @@
             <router-link to="/" class="nav-link">Home</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/etudiant" class="nav-link">Etudiant</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link to="/matiere" class="nav-link">Matiere</router-link>
-          </li>
-          <li class="nav-item">
             <router-link to="/professeur" class="nav-link"
               >Professeur</router-link
             >
             <!-- <a class="nav-link" href="#">Professeur</a> -->
+          </li>
+          <li class="nav-item">
+            <router-link to="/etudiant" class="nav-link">Etudiant</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/matiere" class="nav-link">Matiere</router-link>
           </li>
         </ul>
         <ul>

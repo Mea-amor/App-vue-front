@@ -9,6 +9,7 @@
         <font-awesome-icon icon="fa-solid fa-add" style="color:white" />
       </button>
       <div class="bg-table">
+        <notify-delete v-if="isDelete" @deleteToogle="toggleDelete" />
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -38,8 +39,9 @@
                 </button>
                 <button
                   class="btn btn-danger btn-sm btn-pers"
-                  @click="destroyOne(index, etudiant.id)"
+                  @click="toggleDelete()"
                 >
+                  <!-- @click="destroyOne(index, etudiant.id)" -->
                   <font-awesome-icon
                     icon="fa-solid fa-trash-can"
                     style="color:white"
@@ -66,10 +68,12 @@
 import EtudiantDataService from "../../api/EtudiantDataService";
 import AddEtudiant from "./formAdd";
 import Loading from "../loading";
+import NotifyDelete from "../notification/notifyDelete";
 export default {
   components: {
     AddEtudiant,
-    Loading
+    Loading,
+    NotifyDelete
   },
   name: "etudiant",
   data() {
@@ -78,7 +82,8 @@ export default {
       currentEtudiant: null,
       currentIndex: null,
       showAdd: false,
-      isLoading: false
+      isLoading: false,
+      isDelete: false
     };
   },
   methods: {
@@ -102,6 +107,13 @@ export default {
     },
     takeIndex(index, etudiantId) {
       this.currentIndex = [index, etudiantId];
+    },
+    toggleDelete() {
+      if (this.isDelete) {
+        this.isDelete = false;
+      } else {
+        this.isDelete = true;
+      }
     },
     destroyOne(index, etudiantId) {
       EtudiantDataService.delete(etudiantId)

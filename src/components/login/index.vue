@@ -2,6 +2,9 @@
 
 <template>
   <div class="div-login d-flex">
+    <div class="bg-loading bg-loading-color" v-if="isLoading">
+      <loading />
+    </div>
     <div><img src="../../assets/sec1.png" width="280px" /></div>
     <form class="login flex-grow-1" @submit.prevent="login">
       <h1>Se connecter</h1>
@@ -53,20 +56,33 @@
   background-color: none;
   border-color: none;
 }
+.bg-loading {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+.bg-loading-color {
+  background: #181e1c21;
+}
 </style>
 
 <script>
 // eslint-disable-next-line no-unused-vars
 import { AUTH_REQUEST } from "actions/auth";
 import http from "../../utils/http-common";
+import Loading from "../loading";
 
 export default {
+  components: { Loading },
   name: "login",
   data() {
     return {
       username: "",
       password: "",
-      Invalid: false
+      Invalid: false,
+      isLoading: false
     };
   },
   methods: {
@@ -74,6 +90,7 @@ export default {
       return JSON.stringify(res, null, 2);
     },
     login: async function() {
+      this.isLoading = true;
       const { username, password } = this;
       const postData = {
         email: username,
@@ -81,10 +98,7 @@ export default {
       };
 
       try {
-        console.log("Active");
         const res = await http.post("/login", postData);
-        console.log("Not Active");
-
         const result = {
           status: res.status + "-" + res.statusText,
           headers: res.headers,
@@ -93,7 +107,6 @@ export default {
         if (result.data.token) {
           localStorage.setItem("user", JSON.stringify(result.data));
         }
-        console.log(result);
         this.Invalid = false;
         this.$store.dispatch("addToFavorites", {
           status: true,
@@ -102,9 +115,11 @@ export default {
           success: true
         });
         this.clearPostOutput();
+        this.isLoading = false;
       } catch (err) {
         console.log(err);
         this.Invalid = true;
+        this.isLoading = false;
       }
     },
 
