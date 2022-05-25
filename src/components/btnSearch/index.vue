@@ -12,7 +12,12 @@
 </style>
 <template>
   <div class="d-flex position-relative mt-1 ">
-    <input type="text" placeholder="recherche par nom" id="customInput" />
+    <input
+      type="text"
+      placeholder="recherche par nom"
+      id="customInput"
+      v-model="value"
+    />
     <div class="position-absolute end-0">
       <button class="btnParent btnOk">
         <font-awesome-icon icon="fa-solid fa-check" style="color: #1f3a24;" />
@@ -48,7 +53,9 @@ export default {
   name: "btnSearch",
   data: function() {
     return {
-      isListUtils: false
+      isListUtils: false,
+      typeSearch: "",
+      value: ""
     };
   },
   methods: {
