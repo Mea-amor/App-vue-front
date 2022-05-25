@@ -1,0 +1,48 @@
+#customInput {
+  height: 30px;
+  border: 1px solid #00000021;
+  width: 220px;
+  box-shadow: rgb(0 0 0 / 5%) 0px 0px 0px 1px;
+  border-radius: 6px;
+  padding-right: 65px;
+}
+#customInput:focus {
+  outline: none !important;
+  border: 1px solid #00000045;
+}
+
+.btnParent {
+  border: 1px solid #0000004a;
+  border-radius: 8px;
+  font-size: 14px;
+  box-shadow: rgb(0 0 0 / 5%) 0px 1px 2px 0px;
+}
+.btnInfo {
+  background: #66728182;
+  border-color: #9aacc354;
+}
+.btnOk {
+  background: #769d61ab;
+  border-color: #84b774;
+}
+.btnOk:hover {
+  background: #98c382ad;
+}
+.btnInfo:hover {
+  background: #aac7ebd6;
+}
+.listUtils {
+  display: flex;
+  gap: 5px;
+  position: absolute;
+  background: #ffffff;
+  padding: 3px 5px 3px 5px;
+  top: 32px;
+  right: 28px;
+  width: auto;
+  min-height: 28px;
+  border: 1px solid #00000026;
+  z-index: 3;
+  border-radius: 7px 0px 7px 7px;
+  box-shadow: rgb(0 0 0 / 5%) 0px 0px 0px 1px;
+}

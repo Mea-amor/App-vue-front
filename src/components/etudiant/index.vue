@@ -8,6 +8,25 @@
 }
 .back {
   font-family: "Dosis", sans-serif;
+  margin-left: 1px;
+}
+.select-pers select {
+  outline: none !important;
+}
+li:not(.active) > button {
+  color: #389720;
+}
+
+li.active > button {
+  z-index: 3;
+  color: #fff;
+  background-color: #39743bbd !important;
+  border-color: #acb7ac9e !important;
+}
+.thC {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 </style>
 <template>
@@ -18,62 +37,96 @@
         <font-awesome-icon icon="fa-solid fa-add" style="color:white" />
       </button>
       <div class="bg-table">
-        <div class="mb-2 select-pers d-flex">
-          Items per Page:
-          <select v-model="perPage" @change="handlePageSizeChange($event)">
-            <option v-for="size in pageSizes" :key="size" :value="size">
-              {{ size }}
-            </option>
-          </select>
+        <div class="mb-2 select-pers d-flex ">
+          <div class="me-auto">
+            Items per Page:
+            <select v-model="perPage" @change="handlePageSizeChange($event)">
+              <option v-for="size in pageSizes" :key="size" :value="size">
+                {{ size }}
+              </option>
+            </select>
+          </div>
+          <btnSearch />
         </div>
         <notify-delete
           v-if="isDelete"
           @deleteToogle="toggleDelete"
           @confirmToogle="destroyOne"
         />
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th scope="ol">Id</th>
-              <th scope="col">Numero</th>
-              <th scope="col">Name</th>
-              <th scope="col">Sexe</th>
-              <th scope="col" style="text-align: center;">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(etudiant, index) in etudiants" :key="index">
-              <th scope="row">{{ etudiant.id }}</th>
-              <td>{{ etudiant.numero }}</td>
-              <td>{{ etudiant.name }}</td>
-              <td>{{ etudiant.sexe }}</td>
-              <td class="td-pers">
-                <button
-                  class="btn btn-success btn-sm btn-pers"
-                  @click="takeIndex(index, etudiant.id)"
-                >
-                  <font-awesome-icon
-                    icon="fa-solid fa-pencil"
-                    style="color:white"
-                  />
-                  Modifier
-                </button>
-                <button
-                  class="btn btn-danger btn-sm btn-pers"
-                  @click="toggleDelete(index, etudiant.id)"
-                >
-                  <!-- @click="destroyOne()" -->
-                  <font-awesome-icon
-                    icon="fa-solid fa-trash-can"
-                    style="color:white"
-                  />
-                  Supprimer
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <loading v-if="isLoading" />
+        <div class="position-relative" style="min-height: 105px;">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="ol">Id</th>
+                <th scope="col">
+                  <div class="thC">
+                    <span>
+                      Numero
+                    </span>
+                    <font-awesome-icon
+                      icon="fa-solid fa-angle-down"
+                      style="color: #273835a6;"
+                    />
+                  </div>
+                </th>
+                <th scope="col">
+                  <div class="thC">
+                    <span>
+                      Name
+                    </span>
+                    <font-awesome-icon
+                      icon="fa-solid fa-angle-down"
+                      style="color: #273835a6;"
+                    />
+                  </div>
+                </th>
+                <th scope="col">
+                  <div class="thC">
+                    <span>
+                      Sexe
+                    </span>
+                    <font-awesome-icon
+                      icon="fa-solid fa-angle-down"
+                      style="color: #273835a6;"
+                    />
+                  </div>
+                </th>
+                <th scope="col" style="text-align: center;">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(etudiant, index) in etudiants" :key="index">
+                <th scope="row">{{ etudiant.id }}</th>
+                <td>{{ etudiant.numero }}</td>
+                <td>{{ etudiant.name }}</td>
+                <td>{{ etudiant.sexe }}</td>
+                <td class="td-pers">
+                  <button
+                    class="btn btn-success btn-sm btn-pers"
+                    @click="takeIndex(index, etudiant.id)"
+                  >
+                    <font-awesome-icon
+                      icon="fa-solid fa-pencil"
+                      style="color:white"
+                    />
+                    Modifier
+                  </button>
+                  <button
+                    class="btn btn-danger btn-sm btn-pers"
+                    @click="toggleDelete(index, etudiant.id)"
+                  >
+                    <font-awesome-icon
+                      icon="fa-solid fa-trash-can"
+                      style="color:white"
+                    />
+                    Supprimer
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <loading v-if="isLoading" />
+        </div>
 
         <div class=" d-flex " v-if="rows">
           <p class=" flex-grow-1" v-if="rows">
@@ -104,11 +157,13 @@ import EtudiantDataService from "../../api/EtudiantDataService";
 import AddEtudiant from "./formAdd";
 import Loading from "../loading";
 import NotifyDelete from "../notification/notifyDelete";
+import BtnSearch from "../btnSearch";
 export default {
   components: {
     AddEtudiant,
     Loading,
-    NotifyDelete
+    NotifyDelete,
+    BtnSearch
   },
   name: "etudiant",
   data() {

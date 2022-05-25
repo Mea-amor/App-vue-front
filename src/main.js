@@ -25,7 +25,14 @@ import {
   faBook,
   faPencil,
   faTrashCan,
-  faAdd
+  faAdd,
+  faGear,
+  faCheck,
+  faAddressBook,
+  faAddressCard,
+  faAngleDown,
+  faAngleUp,
+  faArrowRightFromBracket
 } from "@fortawesome/free-solid-svg-icons";
 
 /* import font awesome icon component */
@@ -40,7 +47,14 @@ library.add(
   faUserGraduate,
   faUser,
   faBook,
-  faAdd
+  faAdd,
+  faGear,
+  faCheck,
+  faAddressBook,
+  faAddressCard,
+  faAngleDown,
+  faAngleUp,
+  faArrowRightFromBracket
 );
 
 /* add font awesome icon component */
