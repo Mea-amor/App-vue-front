@@ -1,0 +1,60 @@
+.bg-notifDel {
+  background: #ffffff00;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  right: 0px;
+  top: 0;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.div-contenue {
+  background: #fbfbfb;
+  width: 50%;
+  padding: 10px;
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+  box-shadow: rgb(60 64 67 / 30%) 0px 1px 2px 0px,
+    rgb(60 64 67 / 15%) 0px 1px 3px 1px;
+}
+
+.text-color {
+  color: #837f7f;
+  font-family: sans-serif;
+}
+
+.div-btn {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.cancel-btn {
+  background: #ff00001f;
+
+  border: 1px solid #1005052b;
+  border-radius: 3px;
+  color: #66583d;
+  box-shadow: rgb(0 0 0 / 16%) 0px 1px 4px;
+}
+
+.confirme-btn {
+  background: #53b7778c;
+  border: 1px solid #98cfb6;
+  border-radius: 3px;
+  color: #66583d;
+  box-shadow: rgb(0 0 0 / 16%) 0px 1px 4px;
+}
+
+.confirme-btn:hover {
+  background: #33814f9c;
+}
+
+.cancel-btn:hover {
+  background: #ff000065;
+  border-color: #e7bebe;
+}
