@@ -1,3 +1,7 @@
+# App-vue-front
+
+=======
+
 # vue-auth-handling
 
 ## The project
@@ -6,11 +10,9 @@ This repo is a support for [this article](https://blog.sqreen.io/authentication-
 
 [Demo](https://vue-auth-example.netlify.com) of this repo.
 
-
-
 ## Build Setup
 
-``` bash
+```bash
 # install dependencies
 npm install
 
