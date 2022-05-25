@@ -108,7 +108,7 @@ export default {
       } else {
         EtudiantDataService.create(data)
           .then(response => {
-            this.etudiants.push(response.data.data);
+            // this.etudiants.push(response.data.data);
             this.$store.dispatch("addToFavorites", {
               status: true,
               message: "Ajout etudiant avec succée",

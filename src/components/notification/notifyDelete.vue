@@ -9,7 +9,7 @@
         <button class="cancel-btn" @click="toogleDelete">
           Annuler
         </button>
-        <button class="confirme-btn">Confirmer</button>
+        <button class="confirme-btn" @click="toogleConfirm">Confirmer</button>
       </div>
     </div>
   </div>
@@ -26,6 +26,9 @@ export default {
   methods: {
     toogleDelete() {
       this.$emit("deleteToogle");
+    },
+    toogleConfirm() {
+      this.$emit("confirmToogle");
     }
   }
 };

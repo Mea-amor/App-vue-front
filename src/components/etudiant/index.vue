@@ -1,5 +1,14 @@
 <style>
 @import "../../assets/styles/table-custom.css";
+@import url("https://fonts.googleapis.com/css2?familyDosis:wght@300&display=swap");
+.select-pers select {
+  border: 1px solid #cfc8c8;
+  color: #3e3e3e;
+  font-family: "Dosis", sans-serif;
+}
+.back {
+  font-family: "Dosis", sans-serif;
+}
 </style>
 <template>
   <div class="back">
@@ -9,7 +18,19 @@
         <font-awesome-icon icon="fa-solid fa-add" style="color:white" />
       </button>
       <div class="bg-table">
-        <notify-delete v-if="isDelete" @deleteToogle="toggleDelete" />
+        <div class="mb-2 select-pers d-flex">
+          Items per Page:
+          <select v-model="perPage" @change="handlePageSizeChange($event)">
+            <option v-for="size in pageSizes" :key="size" :value="size">
+              {{ size }}
+            </option>
+          </select>
+        </div>
+        <notify-delete
+          v-if="isDelete"
+          @deleteToogle="toggleDelete"
+          @confirmToogle="destroyOne"
+        />
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -39,9 +60,9 @@
                 </button>
                 <button
                   class="btn btn-danger btn-sm btn-pers"
-                  @click="toggleDelete()"
+                  @click="toggleDelete(index, etudiant.id)"
                 >
-                  <!-- @click="destroyOne(index, etudiant.id)" -->
+                  <!-- @click="destroyOne()" -->
                   <font-awesome-icon
                     icon="fa-solid fa-trash-can"
                     style="color:white"
@@ -53,53 +74,19 @@
           </tbody>
         </table>
         <loading v-if="isLoading" />
-        <!-- <div class="mb-3">
-          Items per Page:
-          <select v-model="pageSize" @change="handlePageSizeChange($event)">
-            <option v-for="size in pageSizes" :key="size" :value="size">
-              {{ size }}
-            </option>
-          </select>
-        </div> -->
-        <div class="mt-3">
-          <!-- <div class="mb-3">
-              Items per Page:
-              <select v-model="perPage" @change="handlePageSizeChange($event)">
-                <option v-for="size in pageSizes" :key="size" :value="size">
-                  {{ size }}
-                </option>
-              </select>
-            </div> -->
+
+        <div class=" d-flex " v-if="rows">
+          <p class=" flex-grow-1" v-if="rows">
+            Page actuelle: {{ currentPage }}
+          </p>
           <b-pagination
             v-model="currentPage"
             :total-rows="rows"
             :per-page="perPage"
             last-number
             @change="handlePageChange"
+            align="right"
           ></b-pagination>
-          <!-- <b-pagination
-            v-model="currentPage"
-            :total-rows="rows"
-            :per-page="perPage"
-            first-number
-            last-number
-          ></b-pagination> -->
-          <div class="mb-3">
-            Items per Page:
-            <select v-model="perPage" @change="handlePageSizeChange($event)">
-              <option v-for="size in pageSizes" :key="size" :value="size">
-                {{ size }}
-              </option>
-            </select>
-          </div>
-          <p class="mt-3">Current Page: {{ currentPage }}</p>
-          <b-table
-            id="my-table"
-            :items="items"
-            :per-page="perPage"
-            :current-page="currentPage"
-            small
-          ></b-table>
         </div>
       </div>
     </div>
@@ -127,26 +114,15 @@ export default {
   data() {
     return {
       etudiants: [],
-
-      currentEtudiant: null,
+      rows: null,
+      currentEtudiant: [],
       currentIndex: null,
       showAdd: false,
       isLoading: false,
       isDelete: false,
       perPage: 5,
       pageSizes: [5, 10, 15, 20, 30, 50, 100],
-      currentPage: 1,
-      items: [
-        { id: 1, first_name: "Fred", last_name: "Flintstone" },
-        { id: 2, first_name: "Wilma", last_name: "Flintstone" },
-        { id: 3, first_name: "Barney", last_name: "Rubble" },
-        { id: 4, first_name: "Betty", last_name: "Rubble" },
-        { id: 5, first_name: "Pebbles", last_name: "Flintstone" },
-        { id: 6, first_name: "Bamm Bamm", last_name: "Rubble" },
-        { id: 7, first_name: "The Great", last_name: "Gazzoo" },
-        { id: 8, first_name: "Rockhead", last_name: "Slate" },
-        { id: 9, first_name: "Pearl", last_name: "Slaghoople" }
-      ]
+      currentPage: 1
     };
   },
   methods: {
@@ -156,18 +132,17 @@ export default {
         params["page"] = page;
       }
       if (pageSize) {
-        params["size"] = pageSize;
+        params["per_page"] = pageSize;
       }
       return params;
     },
     retrieveEtudiant() {
       const params = this.getRequestParams(this.currentPage, this.perPage);
-      console.log("params : ", params);
       this.isLoading = true;
-      EtudiantDataService.getAll()
+      EtudiantDataService.getAll(params)
         .then(response => {
-          // this.etudiants = response.data.data;
-          console.log(response);
+          this.etudiants = response.data.data.data;
+          this.rows = response.data.data.total;
           this.isLoading = false;
         })
         .catch(e => {
@@ -184,23 +159,28 @@ export default {
     takeIndex(index, etudiantId) {
       this.currentIndex = [index, etudiantId];
     },
-    toggleDelete() {
+    toggleDelete(index, etudiantId) {
       if (this.isDelete) {
         this.isDelete = false;
       } else {
         this.isDelete = true;
+        this.currentEtudiant[0] = index;
+        this.currentEtudiant[1] = etudiantId;
       }
     },
-    destroyOne(index, etudiantId) {
-      EtudiantDataService.delete(etudiantId)
+    destroyOne() {
+      EtudiantDataService.delete(this.currentEtudiant[1])
         .then(resp => {
-          this.etudiants.splice(index, 1);
+          this.etudiants.splice(this.currentEtudiant[0], 1);
           this.$store.dispatch("addToFavorites", {
             status: true,
             message: "Suppression etudiant avec succée",
             nameIcon: "SuccessIcon.png",
             success: false
           });
+          this.retrieveEtudiant();
+          this.currentEtudiant = [];
+          this.isDelete = false;
         })
         .catch(e => {
           console.log(e);
@@ -209,19 +189,18 @@ export default {
 
     handlePageChange(value) {
       this.currentPage = value;
-      console.log(this.currentPage);
-      // this.retrieveTutorials();
+      this.retrieveEtudiant();
     },
     handlePageSizeChange(event) {
       this.pageSize = event.target.value;
       this.page = 1;
-      // this.retrieveTutorials();
+      this.retrieveEtudiant();
     }
   },
   computed: {
-    rows() {
-      return this.items.length;
-    }
+    // rows() {
+    //   return this.etudiants.length;
+    // }
   },
   mounted() {
     this.retrieveEtudiant();
