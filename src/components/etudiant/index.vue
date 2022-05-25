@@ -130,7 +130,8 @@ li.active > button {
 
         <div class=" d-flex " v-if="rows">
           <p class=" flex-grow-1" v-if="rows">
-            Page actuelle: {{ currentPage }}
+            Page : <span> {{ currentPage }}</span> Total :
+            <span>{{ rows }}</span>
           </p>
           <b-pagination
             v-model="currentPage"

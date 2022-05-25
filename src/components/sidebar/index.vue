@@ -59,7 +59,11 @@
         </li>
       </router-link>
       <router-link to="/" class=" text-white">
-        <li class="d-flex ps-3">
+        <li
+          class="d-flex ps-3"
+          style="border-top: 1px solid #00000026;
+          margin-top: 10px;"
+        >
           <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" />
           DECONNEXION
         </li>
