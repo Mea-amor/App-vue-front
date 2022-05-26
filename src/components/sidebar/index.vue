@@ -1,6 +1,6 @@
 <template>
   <div
-    class="d-flex flex-column flex-shrink-0 p-0 text-white bg-dark desgin-personalize"
+    class="d-flex flex-column flex-shrink-0 p-0 text-white bg-darkC desgin-personalize"
   >
     <div class="bg-div">
       <a
@@ -10,10 +10,10 @@
         <svg class="bi me-2" width="40" height="32">
           <use xlink:href="#bootstrap"></use>
         </svg>
-        <span class="fs-4">
+        <span class="fs-4" style="color: #010402;">
           <font-awesome-icon
             icon="fa-solid fa-book"
-            style="position: relative;"
+            style="position: relative;right: 33px;"
           />Gestion</span
         >
       </a>
@@ -27,7 +27,7 @@
             style="position: relative;
 "
           />
-          Home
+          ACCUEIL
 
           <!-- faUserGraduate -->
         </li>
@@ -39,7 +39,7 @@
             style="position: relative;
 "
           />
-          Professeur
+          PROFESSEUR
         </li>
       </router-link>
       <router-link to="/etudiant" class="text-white">
@@ -49,13 +49,23 @@
             style="position: relative;
 "
           />
-          Etudiant
+          ETUDIANTS
         </li>
       </router-link>
       <router-link to="/matiere" class=" text-white">
         <li class="d-flex ps-3">
           <font-awesome-icon icon="fa-solid fa-book" />
-          Matiere
+          MATIERE
+        </li>
+      </router-link>
+      <router-link to="/" class=" text-white">
+        <li
+          class="d-flex ps-3"
+          style="border-top: 1px solid #00000026;
+          margin-top: 10px;"
+        >
+          <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" />
+          DECONNEXION
         </li>
       </router-link>
     </ul>
@@ -103,9 +113,10 @@ export default {
 };
 </script>
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@300&display=swap");
 .desgin-personalize {
   width: 280px;
-  height: 566px;
+  height: 583px;
 }
 .nav-link {
   display: flex;
@@ -116,9 +127,14 @@ export default {
 .lipers li {
   height: 45px;
   gap: 16px;
+  color: #696c68;
+  font-family: "Barlow", sans-serif;
 }
 .lipers a.router-link-exact-active {
   background-color: #87878726;
+  border-right: 3px solid black;
+  border-color: #198754bf;
+  color: #4d504c;
 }
 .lipers a {
   text-decoration: none;
@@ -127,5 +143,10 @@ export default {
   width: 100%;
   height: 8%;
   display: flex;
+  border-bottom: 1px solid #00000014;
+}
+.bg-darkC {
+  background-color: #152c0914 !important;
+  box-shadow: rgb(0 0 0 / 10%) 0px 0px 5px 0px, rgb(0 0 0) 0px 0px 1px 0px;
 }
 </style>
