@@ -9,6 +9,7 @@
 #customInput:focus {
   outline: none !important;
   border: 1px solid #00000045;
+  border-color: #8bb564c4;
 }
 
 .btnParent {
@@ -18,18 +19,26 @@
   box-shadow: rgb(0 0 0 / 5%) 0px 1px 2px 0px;
 }
 .btnInfo {
-  background: #66728182;
-  border-color: #9aacc354;
+  background: #60a3f791;
+  border-color: #7caae554;
+}
+.btndanger {
+  background: #c57878ba;
+  border-color: #f58b8b9c;
+  width: 27px;
 }
 .btnOk {
-  background: #769d61ab;
-  border-color: #84b774;
+  background: #75c34bd9;
+  border-color: #769f69;
 }
 .btnOk:hover {
   background: #98c382ad;
 }
 .btnInfo:hover {
-  background: #aac7ebd6;
+  background: #5c9be9d6;
+}
+.btndanger:hover {
+  background: #c24e4eba;
 }
 .listUtils {
   display: flex;
