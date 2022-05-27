@@ -46,7 +46,10 @@ li.active > button {
               </option>
             </select>
           </div>
-          <btnSearch />
+          <btnSearch
+            @searchValue="filterSearch"
+            @resetValue="retrieveEtudiant()"
+          />
         </div>
         <notify-delete
           v-if="isDelete"
@@ -171,18 +174,22 @@ export default {
     return {
       etudiants: [],
       rows: null,
-      currentEtudiant: [],
+      // currentEtudiant: [],
       currentIndex: null,
       showAdd: false,
       isLoading: false,
       isDelete: false,
       perPage: 5,
       pageSizes: [5, 10, 15, 20, 30, 50, 100],
-      currentPage: 1
+      currentPage: 1,
+      filter: {
+        type: "",
+        value: ""
+      }
     };
   },
   methods: {
-    getRequestParams(page, pageSize) {
+    getRequestParams(page, pageSize, filter) {
       let params = {};
       if (page) {
         params["page"] = page;
@@ -190,16 +197,25 @@ export default {
       if (pageSize) {
         params["per_page"] = pageSize;
       }
+      if (filter.type && filter.value) {
+        params["type"] = filter.type;
+        params["value"] = filter.value;
+      }
       return params;
     },
     retrieveEtudiant() {
-      const params = this.getRequestParams(this.currentPage, this.perPage);
+      const params = this.getRequestParams(
+        this.currentPage,
+        this.perPage,
+        this.filter
+      );
       this.isLoading = true;
       EtudiantDataService.getAll(params)
         .then(response => {
           this.etudiants = response.data.data.data;
           this.rows = response.data.data.total;
           this.isLoading = false;
+          this.filter.value = "";
         })
         .catch(e => {
           console.log(e);
@@ -226,7 +242,7 @@ export default {
     },
     destroyOne() {
       EtudiantDataService.delete(this.currentEtudiant[1])
-        .then(resp => {
+        .then(() => {
           this.etudiants.splice(this.currentEtudiant[0], 1);
           this.$store.dispatch("addToFavorites", {
             status: true,
@@ -251,13 +267,16 @@ export default {
       this.pageSize = event.target.value;
       this.page = 1;
       this.retrieveEtudiant();
+    },
+    filterSearch(type = "name", value) {
+      if (value && type) {
+        this.filter.type = type;
+        this.filter.value = value.trim();
+      }
+      this.retrieveEtudiant();
     }
   },
-  computed: {
-    // rows() {
-    //   return this.etudiants.length;
-    // }
-  },
+  computed: {},
   mounted() {
     this.retrieveEtudiant();
   }
