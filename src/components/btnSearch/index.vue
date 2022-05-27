@@ -10,6 +10,31 @@
   box-shadow: rgb(9 30 66 / 25%) 0px 1px 1px, rgb(9 30 66 / 13%) 0px 0px 1px 1px;
   cursor: pointer;
 }
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
+  transform: translateX(10px);
+  opacity: 0;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.listUtils span:hover {
+  position: relative;
+  top: -4px;
+  transition: all 1s cubic-bezier(0.43, 1.1, 0.62, 1.08);
+}
 </style>
 <template>
   <div class="d-flex position-relative mt-1 ">

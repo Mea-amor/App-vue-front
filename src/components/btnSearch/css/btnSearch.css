@@ -27,6 +27,11 @@
   border-color: #f58b8b9c;
   width: 27px;
 }
+.btndanger {
+  background: #c57878ba;
+  border-color: #f58b8b9c;
+  width: 27px;
+}
 .btnOk {
   background: #75c34bd9;
   border-color: #769f69;
