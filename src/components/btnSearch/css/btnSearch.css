@@ -19,8 +19,13 @@
   box-shadow: rgb(0 0 0 / 5%) 0px 1px 2px 0px;
 }
 .btnInfo {
-  background: #66728182;
-  border-color: #9aacc354;
+  background: #60a3f791;
+  border-color: #7caae554;
+}
+.btndanger {
+  background: #c57878ba;
+  border-color: #f58b8b9c;
+  width: 27px;
 }
 .btndanger {
   background: #c57878ba;
@@ -35,7 +40,10 @@
   background: #98c382ad;
 }
 .btnInfo:hover {
-  background: #aac7ebd6;
+  background: #5c9be9d6;
+}
+.btndanger:hover {
+  background: #c24e4eba;
 }
 .listUtils {
   display: flex;

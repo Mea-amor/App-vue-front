@@ -6,6 +6,7 @@ import App from "./App";
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 import Snotify, { SnotifyPosition } from "vue-snotify";
 import PortalVue from "portal-vue";
+import "animate.css";
 
 import router from "./router";
 import store from "./store";
@@ -14,6 +15,7 @@ import Loading from "components/lib/loading";
 import apiClient from "./utils/http-common";
 import CenterContainer from "components/lib/center-container";
 
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
@@ -38,7 +40,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 /* import font awesome icon component */
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 /* add icons to the library */
 library.add(

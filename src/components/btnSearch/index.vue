@@ -1,5 +1,6 @@
 <style>
 @import "./css/btnSearch.css";
+@import "./css/animateBtn.css";
 .iconGlobal {
   background: #377c4c73;
   padding: 0px 5px;
@@ -54,7 +55,7 @@
       </button>
       <button
         class="btnParent  ms-1 me-1"
-        :class="{ btninfo: !showFont, btndanger: showFont }"
+        :class="{ btnInfo: !showFont, btndanger: showFont }"
       >
         <font-awesome-icon
           icon="fa-solid fa-gear"
