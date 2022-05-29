@@ -87,8 +87,14 @@ export default {
       if (this.nametitle === "Modication") {
         MatiereDataService.update(this.currentIndex[1], data)
           .then(response => {
-            console.log(response.data.data);
+            // console.log(response.data.data);
             this.matieres.splice(this.currentIndex[0], 1, response.data.data);
+            this.$store.dispatch("addToFavorites", {
+              status: true,
+              message: "Modification d'un matiere  avec succée",
+              nameIcon: "SuccessIcon.png",
+              success: true
+            });
           })
           .catch(e => {
             console.log(e);
@@ -96,17 +102,21 @@ export default {
       } else {
         MatiereDataService.create(data)
           .then(response => {
-            this.matieres.push(response.data.data);
+            // this.matieres.push(response.data.data);
+            this.$store.dispatch("addToFavorites", {
+              status: true,
+              message: "Ajout d'un matiere avec succée",
+              nameIcon: "SuccessIcon.png",
+              success: true
+            });
           })
           .catch(e => {
             console.log(e);
           });
       }
-      console.log("test");
-      this.$emit("newValue", false);
+      this.$emit("newValue", true);
       // this.$router.push("/matiere");
     },
-    getByidMatiere: async function() {},
     cancel: function() {
       this.$emit("newValue", false);
     }
@@ -124,7 +134,7 @@ export default {
     } else {
       this.namebtn = "Enregistrer";
       this.nametitle = "Ajout";
-      console.log("monted this : ", this.currentIndex);
+      // console.log("monted this : ", this.currentIndex);
     }
   }
 };
