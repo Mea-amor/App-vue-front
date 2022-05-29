@@ -73,7 +73,6 @@ export default {
   },
   methods: {
     updateTimer() {
-      console.log("test opda");
       this.ivl = setInterval(() => {
         this.ctr = this.ctr + 1;
       }, this.count);

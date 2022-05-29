@@ -9,7 +9,7 @@
         required
         v-model="numero"
         type="text"
-        placeholder="Numero etudiant"
+        placeholder="Numero matiere"
         class="form-control"
         id="exampleFormControlInput1"
       />
@@ -18,7 +18,7 @@
         required
         v-model="libelle"
         type="text"
-        placeholder="Nom etudiant"
+        placeholder="Nom matiere"
         class="form-control"
       />
       <label class="form-label">coefficient</label>
@@ -28,9 +28,7 @@
         type="number"
         class="form-control"
       />
-      <!-- <div class="text-danger " v-if="Invalid">
-        Email ou mot de passe invalide
-      </div> -->
+
       <hr />
       <div class="d-flex">
         <button type="submit" class="btn btn-success flex-fill">

@@ -223,10 +223,8 @@ export default {
       );
 
       this.isLoading = true;
-      // console.log("params : ", params);
       EtudiantDataService.getAll(params)
         .then(response => {
-          // console.log(response);
           this.etudiants = response.data.data.data;
           this.rows = response.data.data.total;
           this.isLoading = false;
