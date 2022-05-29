@@ -1,7 +1,9 @@
 import http from "../utils/http-common";
 class MatiereDataService {
-  getAll() {
-    return http.get("/matiere");
+  getAll(params) {
+    return http.get("/matiere", {
+      params
+    });
   }
   get(id) {
     return http.get(`/matiere/${id}`);
