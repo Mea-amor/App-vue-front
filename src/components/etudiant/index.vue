@@ -1,33 +1,6 @@
 <style>
 @import "../../assets/styles/table-custom.css";
 @import url("https://fonts.googleapis.com/css2?familyDosis:wght@300&display=swap");
-.select-pers select {
-  border: 1px solid #cfc8c8;
-  color: #3e3e3e;
-  font-family: "Dosis", sans-serif;
-}
-.back {
-  font-family: "Dosis", sans-serif;
-  margin-left: 1px;
-}
-.select-pers select {
-  outline: none !important;
-}
-li:not(.active) > button {
-  color: #389720;
-}
-
-li.active > button {
-  z-index: 3;
-  color: #fff;
-  background-color: #39743bbd !important;
-  border-color: #acb7ac9e !important;
-}
-.thC {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
 </style>
 <template>
   <div class="back">
@@ -46,10 +19,7 @@ li.active > button {
               </option>
             </select>
           </div>
-          <btnSearch
-            @searchValue="filterSearch"
-            @resetValue="retrieveEtudiant()"
-          />
+          <btnSearch @searchValue="filterSearch" @resetValue="filterSearch()" />
         </div>
         <notify-delete
           v-if="isDelete"
@@ -62,38 +32,58 @@ li.active > button {
               <tr>
                 <th scope="ol">Id</th>
                 <th scope="col">
-                  <div class="thC">
+                  <div class="thC" @click="sendSorter('numero')">
                     <span>
-                      Numero
+                      {{ sorter[0].type }}
                     </span>
                     <font-awesome-icon
                       icon="fa-solid fa-angle-down"
                       style="color: #273835a6;"
+                      v-if="!sorter[0].isAsc"
+                    />
+                    <font-awesome-icon
+                      icon="fa-solid fa-angle-up"
+                      style="color: #273835a6;"
+                      v-if="sorter[0].isAsc"
                     />
                   </div>
                 </th>
                 <th scope="col">
-                  <div class="thC">
+                  <div class="thC" @click="sendSorter('name')">
                     <span>
-                      Name
+                      {{ sorter[1].type }}
                     </span>
                     <font-awesome-icon
                       icon="fa-solid fa-angle-down"
                       style="color: #273835a6;"
+                      v-if="!sorter[1].isAsc"
+                    />
+                    <font-awesome-icon
+                      icon="fa-solid fa-angle-up"
+                      style="color: #273835a6;"
+                      v-if="sorter[1].isAsc"
                     />
                   </div>
                 </th>
                 <th scope="col">
-                  <div class="thC">
+                  <div class="thC" @click="sendSorter('sexe')">
                     <span>
-                      Sexe
+                      {{ sorter[2].type }}
                     </span>
                     <font-awesome-icon
                       icon="fa-solid fa-angle-down"
                       style="color: #273835a6;"
+                      v-if="!sorter[2].isAsc"
+                    />
+                    <font-awesome-icon
+                      icon="fa-solid fa-angle-up"
+                      style="color: #273835a6;"
+                      v-if="sorter[2].isAsc"
                     />
                   </div>
                 </th>
+                <!-- @testValue="test" -->
+
                 <th scope="col" style="text-align: center;">Action</th>
               </tr>
             </thead>
@@ -125,6 +115,12 @@ li.active > button {
                     Supprimer
                   </button>
                 </td>
+              </tr>
+              <tr
+                v-if="etudiants.length === 0"
+                style="text-align: center;height: 55px;"
+              >
+                <td colspan="5"><span> Pas des données</span></td>
               </tr>
             </tbody>
           </table>
@@ -162,19 +158,21 @@ import AddEtudiant from "./formAdd";
 import Loading from "../loading";
 import NotifyDelete from "../notification/notifyDelete";
 import BtnSearch from "../btnSearch";
+// import Thtable from "../tableThead";
 export default {
   components: {
     AddEtudiant,
     Loading,
     NotifyDelete,
     BtnSearch
+    // Thtable
   },
   name: "etudiant",
   data() {
     return {
       etudiants: [],
+      currentEtudiant: [],
       rows: null,
-      // currentEtudiant: [],
       currentIndex: null,
       showAdd: false,
       isLoading: false,
@@ -185,10 +183,17 @@ export default {
       filter: {
         type: "",
         value: ""
-      }
+      },
+      sortBy: false,
+      sorter: [
+        { type: "numero", isAsc: false, isClick: false },
+        { type: "name", isAsc: false, isClick: false },
+        { type: "sexe", isAsc: false, isClick: false }
+      ]
     };
   },
   methods: {
+    test() {},
     getRequestParams(page, pageSize, filter) {
       let params = {};
       if (page) {
@@ -201,6 +206,13 @@ export default {
         params["type"] = filter.type;
         params["value"] = filter.value;
       }
+      if (this.sortBy) {
+        let filtre = this.sorter.filter(sort => sort.isClick);
+        let value = filtre[0].isAsc ? "asc" : "desc";
+
+        params["sortbyType"] = filtre[0].type;
+        params["sortbyValue"] = value;
+      }
       return params;
     },
     retrieveEtudiant() {
@@ -209,13 +221,16 @@ export default {
         this.perPage,
         this.filter
       );
+
       this.isLoading = true;
+      // console.log("params : ", params);
       EtudiantDataService.getAll(params)
         .then(response => {
+          // console.log(response);
           this.etudiants = response.data.data.data;
           this.rows = response.data.data.total;
           this.isLoading = false;
-          this.filter.value = "";
+          this.sortBy = false;
         })
         .catch(e => {
           console.log(e);
@@ -227,6 +242,7 @@ export default {
     ToggleAdd(newTitle) {
       this.showAdd = false;
       this.currentIndex = null;
+      if (newTitle) this.retrieveEtudiant();
     },
     takeIndex(index, etudiantId) {
       this.currentIndex = [index, etudiantId];
@@ -240,6 +256,7 @@ export default {
         this.currentEtudiant[1] = etudiantId;
       }
     },
+
     destroyOne() {
       EtudiantDataService.delete(this.currentEtudiant[1])
         .then(() => {
@@ -250,9 +267,12 @@ export default {
             nameIcon: "SuccessIcon.png",
             success: false
           });
+          if (this.etudiants.length === 0) {
+            this.currentPage = this.currentPage - 1;
+          }
+          this.isDelete = false;
           this.retrieveEtudiant();
           this.currentEtudiant = [];
-          this.isDelete = false;
         })
         .catch(e => {
           console.log(e);
@@ -272,11 +292,35 @@ export default {
       if (value && type) {
         this.filter.type = type;
         this.filter.value = value.trim();
+      } else {
+        this.filter.value = "";
+        this.filter.type = "";
       }
       this.retrieveEtudiant();
+    },
+    sendSorter(value) {
+      this.sortBy = true;
+      this.sorter.map((data, index) => {
+        if (value === data.type) {
+          data.isAsc = !data.isAsc;
+          data.isClick = true;
+          this.retrieveEtudiant();
+          //
+          console.log("After retrieveData");
+        }
+        if (value !== data.type) {
+          data.isAsc = false;
+          data.isClick = false;
+        }
+        return data;
+      });
     }
   },
-  computed: {},
+  computed: {
+    sort() {
+      return this.sorter;
+    }
+  },
   mounted() {
     this.retrieveEtudiant();
   }

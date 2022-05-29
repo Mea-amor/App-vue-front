@@ -31,9 +31,7 @@
         <option value="masculin">Masculin</option>
         <option value="feminin">Feminin</option>
       </select>
-      <!-- <div class="text-danger " v-if="Invalid">
-        Email ou mot de passe invalide
-      </div> -->
+
       <hr />
       <div class="d-flex">
         <button type="submit" class="btn btn-success flex-fill">
@@ -108,7 +106,6 @@ export default {
       } else {
         EtudiantDataService.create(data)
           .then(response => {
-            // this.etudiants.push(response.data.data);
             this.$store.dispatch("addToFavorites", {
               status: true,
               message: "Ajout etudiant avec succée",
@@ -120,10 +117,9 @@ export default {
             console.log(e);
           });
       }
-      this.$emit("newValue", false);
-      this.$router.push("/etudiant");
+      this.$emit("newValue", true);
     },
-    getByidEtudiant: async function() {},
+
     cancel: function() {
       this.$emit("newValue", false);
     }

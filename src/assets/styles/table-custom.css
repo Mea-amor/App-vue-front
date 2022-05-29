@@ -31,6 +31,34 @@
   gap: 8px;
 }
 
-.table> :not(:first-child) {
+.table > :not(:first-child) {
   border-top: 0px solid currentColor;
+}
+.select-pers select {
+  border: 1px solid #cfc8c8;
+  color: #3e3e3e;
+  font-family: "Dosis", sans-serif;
+}
+.back {
+  font-family: "Dosis", sans-serif;
+  margin-left: 1px;
+}
+.select-pers select {
+  outline: none !important;
+}
+li:not(.active) > button {
+  color: #389720;
+}
+
+li.active > button {
+  z-index: 3;
+  color: #fff;
+  background-color: #39743bbd !important;
+  border-color: #acb7ac9e !important;
+}
+.thC {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  cursor: default;
 }
