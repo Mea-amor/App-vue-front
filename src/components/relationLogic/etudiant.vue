@@ -4,7 +4,7 @@
 <template>
   <div class="bgBack">
     <div class="content-data">
-      <div class="closeProf" @click="$router.push('/professeur')">
+      <div class="closeProf" @click="$router.push('/etudiant')">
         <font-awesome-icon icon="fa-solid fa-xmark" />
       </div>
       <notify-delete
@@ -61,24 +61,20 @@
         </div>
       </div>
 
-      <!-- <div class="triangle" v-if="isAdd">
-
-        <button class="btnSelect">Ok</button>
-      </div> -->
       <div class="add-btn" @click="showAdd()">
         +
       </div>
       <div class="part-1">
         <div class="part-1-a">
           <div class="round">
-            {{ professeur.name[0].toUpperCase()
-            }}{{ professeur.name[1].toUpperCase() }}
+            {{ etudiant.name[0].toUpperCase()
+            }}{{ etudiant.name[1].toUpperCase() }}
           </div>
         </div>
         <div class="part-1-b">
-          <p>{{ professeur.name | capitalizeName }}</p>
-          <p>NUM : {{ professeur.numero }}</p>
-          <p>CAT : {{ professeur.categorie }}</p>
+          <p>{{ etudiant.name | capitalizeName }}</p>
+          <p>NUM : {{ etudiant.numero }}</p>
+          <p>SEXE : {{ etudiant.sexe }}</p>
         </div>
       </div>
       <div class="part-2">
@@ -114,7 +110,7 @@
   </div>
 </template>
 <script>
-import ProfesseurDataService from "../../api/ProfesseurDataService";
+import EtudiantDataService from "../../api/EtudiantDataService";
 import MatiereDataService from "../../api/MatiereDataService";
 import NotifyDelete from "../notification/notifyDelete";
 
@@ -122,14 +118,14 @@ export default {
   components: {
     NotifyDelete
   },
-  name: "relaionProf",
+  name: "relationEtudiant",
   data: function() {
     return {
       value: "",
       currentMatiere: [],
       matieres: [],
-      isIdProf: true,
-      professeur: {},
+      isIdEtudiant: true,
+      etudiant: {},
       allMatieres: [],
       isDelete: false,
       isAdd: false,
@@ -149,18 +145,16 @@ export default {
 
       return params;
     },
-    retrieveProfesseur() {
+    retrieveEtudiant() {
       let params = this.getRequestParams();
       let id = +this.$route.params.id;
-      ProfesseurDataService.get(id)
+      EtudiantDataService.get(id)
         .then(response => {
-          this.professeur = response.data.data[0];
+          this.etudiant = response.data.data[0];
           this.matieres = response.data.data[1];
           MatiereDataService.getAll(params)
             .then(response => {
-              this.allMatieres = response.data.data.data.filter(data => {
-                if (data.professeur_id == null) return data;
-              });
+              this.allMatieres = response.data.data.data;
             })
             .catch(e => {
               console.log(e);
@@ -198,7 +192,7 @@ export default {
       }
     },
     destroyOne() {
-      this.isIdProf = false;
+      this.isIdEtudiant = false;
       this.matieres.forEach(matiere => {
         if (matiere.id == this.currentMatiere[1]) {
           this.matiere.libelle = matiere.libelle;
@@ -217,18 +211,17 @@ export default {
       this.matiere.coefficient = "";
     },
     Save() {
-      let idProf = this.isIdProf ? (idProf = +this.$route.params.id) : null;
-
-      console.log(idProf);
+      let idEtudiant = this.$route.params.id;
       var data = {
         libelle: this.matiere.libelle,
         numero: this.matiere.numero,
         coefficient: this.matiere.coefficient,
-        professeur_id: idProf
+        etudiant_id: idEtudiant,
+        remove: this.isIdEtudiant
       };
       MatiereDataService.update(this.matiere.idMatiere, data)
         .then(response => {
-          const message = this.isIdProf
+          const message = this.isIdEtudiant
             ? "Ajout d'un matiere  avec succée"
             : "Suppression d'un matiere  avec succée";
           this.$store.dispatch("addToFavorites", {
@@ -237,10 +230,10 @@ export default {
             nameIcon: "SuccessIcon.png",
             success: true
           });
-          this.retrieveProfesseur();
+          this.retrieveEtudiant();
           this.isAdd = false;
           this.isDelete = false;
-          this.isIdProf = true;
+          this.isIdEtudiant = true;
           this.resetvalue();
         })
         .catch(e => {
@@ -251,15 +244,19 @@ export default {
       this.isAdd = false;
     }
   },
+  computed: {
+    firstLetter() {
+      return this.etudiant.name[0].toUpperCase();
+    }
+  },
   filters: {
     capitalizeName: function(value) {
-      value = value.toString();
+      console.log("lododoodododod : ", value);
       return value.toUpperCase();
     }
   },
   mounted() {
-    // console.log("Get params : ", +this.$route.params.id);
-    this.retrieveProfesseur();
+    this.retrieveEtudiant();
   }
 };
 </script>

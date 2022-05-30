@@ -7,6 +7,7 @@ import Professeur from "components/professeur";
 import Account from "components/account";
 import Login from "components/login";
 import RelaionProf from "components/relationLogic/professeur";
+import RelationEtu from "components/relationLogic/etudiant";
 import store from "../store";
 
 Vue.use(Router);
@@ -38,7 +39,14 @@ export default new Router({
     {
       path: "/etudiant",
       name: "Etudiant",
-      component: Etudiant
+      component: Etudiant,
+      children: [
+        {
+          path: "etudiant-matiere/:id",
+          name: "EtudiantMatiere",
+          component: RelationEtu
+        }
+      ]
     },
     {
       path: "/matiere",
