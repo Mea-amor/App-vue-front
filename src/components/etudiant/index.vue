@@ -25,6 +25,7 @@
           v-if="isDelete"
           @deleteToogle="toggleDelete"
           @confirmToogle="destroyOne"
+          value="etudiant"
         />
         <div class="position-relative" style="min-height: 105px;">
           <table class="table table-bordered">

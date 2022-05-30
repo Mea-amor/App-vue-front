@@ -4,6 +4,7 @@
 </style>
 <template>
   <div class="back">
+    <router-view></router-view>
     <div class="table-div seconBack">
       <button class="btn btn-success btn-pers" @click="showAddFunction">
         Ajout d'un Professeur
@@ -28,6 +29,7 @@
           v-if="isDelete"
           @deleteToogle="toggleDelete"
           @confirmToogle="destroyOne"
+          value="professeur"
         />
         <div class="position-relative" style="min-height: 105px;">
           <table class="table table-bordered">
@@ -117,6 +119,20 @@
                       style="color:white"
                     />
                     Supprimer
+                  </button>
+                  <button class="btn btn-secondary btn-sm btn-pers">
+                    <router-link
+                      :to="{
+                        name: 'ProfMatiere',
+                        params: { id: professeur.id }
+                      }"
+                      class=" text-white"
+                    >
+                      <font-awesome-icon
+                        icon="fa-solid fa-eye"
+                        style="color:white;width: 15px;"
+                      />
+                    </router-link>
                   </button>
                 </td>
               </tr>

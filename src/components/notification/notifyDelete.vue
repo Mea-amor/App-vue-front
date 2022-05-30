@@ -2,9 +2,7 @@
   <div class="bg-notifDel">
     <div class="div-contenue">
       <h4 class="text-color">Suppression</h4>
-      <p>
-        Voullez-vous vraiment supprimer cet etudiant ?
-      </p>
+      <p>Voullez-vous vraiment supprimer {{ value | letterGenre }} ?</p>
       <div class="div-btn">
         <button class="cancel-btn" @click="toogleDelete">
           Annuler
@@ -17,11 +15,21 @@
 <script>
 // import
 export default {
+  props: {
+    value: String
+  },
   name: "notifyDelete",
   data: function() {
     return {
       message: "test"
     };
+  },
+  filters: {
+    letterGenre: function(value) {
+      if (value == "professeur") return "ce professeur";
+      if (value == "matiere") return "cette matiere";
+      if (value == "etudiant") return "cet etudiant";
+    }
   },
   methods: {
     toogleDelete() {

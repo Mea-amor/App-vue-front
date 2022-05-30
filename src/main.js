@@ -36,7 +36,9 @@ import {
   faAngleDown,
   faAngleUp,
   faArrowRightFromBracket,
-  faStop
+  faStop,
+  faXmark,
+  faEye
 } from "@fortawesome/free-solid-svg-icons";
 
 /* import font awesome icon component */
@@ -58,7 +60,9 @@ library.add(
   faAngleDown,
   faAngleUp,
   faArrowRightFromBracket,
-  faStop
+  faStop,
+  faXmark,
+  faEye
 );
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);

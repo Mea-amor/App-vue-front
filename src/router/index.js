@@ -6,7 +6,7 @@ import Matiere from "components/matiere";
 import Professeur from "components/professeur";
 import Account from "components/account";
 import Login from "components/login";
-import AddEtudiant from "components/etudiant/formAdd";
+import RelaionProf from "components/relationLogic/professeur";
 import store from "../store";
 
 Vue.use(Router);
@@ -38,15 +38,7 @@ export default new Router({
     {
       path: "/etudiant",
       name: "Etudiant",
-      component: Etudiant,
-      children: [
-        {
-          // UserProfile will be rendered inside User's <router-view>
-          // when /user/:id/profile is matched
-          path: "addEtudiant",
-          component: AddEtudiant
-        }
-      ]
+      component: Etudiant
     },
     {
       path: "/matiere",
@@ -56,7 +48,14 @@ export default new Router({
     {
       path: "/professeur",
       name: "Professeur",
-      component: Professeur
+      component: Professeur,
+      children: [
+        {
+          path: "prof-matiere/:id",
+          name: "ProfMatiere",
+          component: RelaionProf
+        }
+      ]
     },
     {
       path: "/account",
