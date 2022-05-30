@@ -155,3 +155,41 @@ select {
 .closeProf:hover {
   background-color: #de8989;
 }
+
+/* class in matiere */
+.data-2-link {
+  background: #dde3e9;
+  min-height: 35px;
+  background: #dde3e9;
+  min-height: 35px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.data-2-link .link1 {
+  background: #cfd2d5;
+  height: 35px;
+  position: relative;
+  top: 1px;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.data-2-link .link2 {
+  background: #cfd2d5;
+  height: 35px;
+  /* width: 192px; */
+  flex-grow: 1;
+  position: relative;
+  top: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.bg-link {
+  background: #ffffff !important;
+  border: 1px solid #00000040;
+}

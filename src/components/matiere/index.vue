@@ -4,6 +4,7 @@
 </style>
 <template>
   <div class="back">
+    <router-view></router-view>
     <div class="table-div seconBack">
       <button class="btn btn-success btn-pers" @click="showAddFunction">
         Ajout d'un matiere
@@ -116,6 +117,20 @@
                       style="color:white"
                     />
                     Supprimer
+                  </button>
+                  <button class="btn btn-secondary btn-sm btn-pers">
+                    <router-link
+                      :to="{
+                        name: 'MatiereEtudiant',
+                        params: { id: matiere.id }
+                      }"
+                      class=" text-white"
+                    >
+                      <font-awesome-icon
+                        icon="fa-solid fa-eye"
+                        style="color:white;width: 15px;"
+                      />
+                    </router-link>
                   </button>
                 </td>
               </tr>

@@ -8,6 +8,8 @@ import Account from "components/account";
 import Login from "components/login";
 import RelaionProf from "components/relationLogic/professeur";
 import RelationEtu from "components/relationLogic/etudiant";
+import RelationMat from "components/relationLogic/matiere";
+
 import store from "../store";
 
 Vue.use(Router);
@@ -51,7 +53,14 @@ export default new Router({
     {
       path: "/matiere",
       name: "Matiere",
-      component: Matiere
+      component: Matiere,
+      children: [
+        {
+          path: "matiere-etudiant/:id",
+          name: "MatiereEtudiant",
+          component: RelationMat
+        }
+      ]
     },
     {
       path: "/professeur",

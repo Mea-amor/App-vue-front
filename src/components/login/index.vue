@@ -1,7 +1,12 @@
 /** * Created by vouill on 11/13/17. */
 
 <template>
-  <div class="div-login d-flex">
+  <div
+    class="div-login d-flex"
+    style="    position: absolute;
+    top: 192px;
+    left: 239px;background: #ffffff;"
+  >
     <div class="bg-loading bg-loading-color" v-if="isLoading">
       <loading />
     </div>
@@ -31,7 +36,22 @@
         Email ou mot de passe invalide
       </div>
       <hr />
-      <button type="submit" class="btn btn-success">Se connecter</button>
+      <div
+        style="display: flex;
+    justify-content: flex-end;    gap: 10px;"
+      >
+        <button type="submit" class="btn btn-success" style="flex-grow: 1;">
+          Se connecter
+        </button>
+        <button
+          type="buton"
+          class="btn btn-danger"
+          @click="$emit('closeDiv', true)"
+          style="flex-grow: 1;"
+        >
+          Annuler
+        </button>
+      </div>
     </form>
   </div>
 </template>

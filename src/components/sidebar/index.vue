@@ -116,7 +116,7 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Barlow:wght@300&display=swap");
 .desgin-personalize {
   width: 280px;
-  height: 583px;
+  height: 591px;
 }
 .nav-link {
   display: flex;

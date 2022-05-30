@@ -104,7 +104,7 @@
             </tr>
             <tr v-if="!matieres.length">
               <td colspan="4" style="    height: 70px;text-align: center;">
-                Pas des don nées
+                Pas des données
               </td>
             </tr>
           </tbody>

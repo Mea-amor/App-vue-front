@@ -1,7 +1,13 @@
 /** * Created by vouill on 11/13/17. */
 
 <template>
-  <div class="div-register d-flex">
+  <div
+    class="div-register d-flex"
+    style="position: absolute;
+    top: 192px;
+    left: 239px;
+    background: rgb(255, 255, 255);"
+  >
     <div><img src="../../assets/sec1.png" width="280px" height="100%" /></div>
     <form class="register flex-grow-1" @submit.prevent="register">
       <h1>S'enregistrer</h1>
@@ -36,7 +42,27 @@
         Confirmation de mot de passe invalide
       </div>
       <hr />
-      <button type="submit" class="btn btn-success">Enregistrer</button>
+      <div
+        style="display: flex;
+    justify-content: flex-end;    gap: 10px;"
+      >
+        <button
+          type="submit"
+          class="btn btn-success"
+          style="flex-grow: 1;
+"
+        >
+          Enregistrer
+        </button>
+        <button
+          type="buton"
+          class="btn btn-danger"
+          @click="$emit('closeDiv', true)"
+          style="flex-grow: 1;"
+        >
+          Annuler
+        </button>
+      </div>
     </form>
   </div>
 </template>
