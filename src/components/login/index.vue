@@ -1,12 +1,7 @@
 /** * Created by vouill on 11/13/17. */
 
 <template>
-  <div
-    class="div-login d-flex"
-    style="    position: absolute;
-    top: 192px;
-    left: 239px;background: #ffffff;"
-  >
+  <div class="div-login d-flex">
     <div class="bg-loading bg-loading-color" v-if="isLoading">
       <loading />
     </div>
@@ -58,9 +53,14 @@
 
 <style>
 .div-login {
-  position: relative;
-  border: 1px solid #d3cfcf3b;
-  box-shadow: rgb(0 0 0 / 12%) 0px 1px 3px, rgb(0 0 0 / 24%) 0px 1px 2px;
+  position: absolute;
+  top: 192px;
+  left: 274px;
+  background: rgb(255 255 255 / 79%);
+  border-radius: 2px;
+  box-shadow: rgb(0 0 0 / 19%) 0px 10px 20px, rgb(0 0 0 / 23%) 0px 6px 6px;
+  box-shadow: rgb(50 50 93 / 25%) 0px 13px 27px -5px,
+    rgb(0 0 0 / 31%) 0px 8px 16px -8px;
 }
 .login {
   display: flex;

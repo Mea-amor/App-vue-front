@@ -5,12 +5,13 @@
     <loading v-if="loading" />
 
     <div v-if="!isAuthenticated && authStatus !== 'loading'">
-      <div>
+      <div class="bg-img">
         <img
           src="../../assets/sectionimg/test2.jpg"
           style="max-width: 100%;
           height: auto;"
         />
+        <div class="bg-transparents"></div>
       </div>
       <div class="title-home">
         <h1>
@@ -27,9 +28,6 @@
       </div>
 
       <div class="divS" v-if="divlogin">
-        <b-button @click="toogleSign()" class="tn-dd">{{
-          name_button
-        }}</b-button>
         <login v-if="loginShow" @closeDiv="closeval()" />
         <register v-if="!loginShow" @closeDiv="closeval()" />
       </div>
@@ -41,6 +39,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@200&family=Tiro+Telugu&display=swap");
 
+.bg-img {
+  position: relative;
+}
+.bg-transparents {
+  position: absolute;
+  top: 0;
+  background: #1314154f;
+  width: 100%;
+  height: 100%;
+}
 .tn-dd {
   position: absolute;
   top: 154px;
@@ -100,7 +108,6 @@ import fakeFeed from "./fakeFeed";
 import FeedItem from "./feedItem.vue";
 import { mapGetters } from "vuex";
 import Login from "components/login";
-
 import Register from "components/register";
 
 export default {

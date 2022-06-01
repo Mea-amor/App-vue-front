@@ -1,13 +1,7 @@
 /** * Created by vouill on 11/13/17. */
 
 <template>
-  <div
-    class="div-register d-flex"
-    style="position: absolute;
-    top: 192px;
-    left: 239px;
-    background: rgb(255, 255, 255);"
-  >
+  <div class="div-register d-flex">
     <div><img src="../../assets/sec1.png" width="280px" height="100%" /></div>
     <form class="register flex-grow-1" @submit.prevent="register">
       <h1>S'enregistrer</h1>
@@ -69,9 +63,14 @@
 
 <style>
 .div-register {
-  position: relative;
-  border: 1px solid #d3cfcf3b;
-  box-shadow: rgb(0 0 0 / 12%) 0px 1px 3px, rgb(0 0 0 / 24%) 0px 1px 2px;
+  position: absolute;
+  top: 192px;
+  left: 274px;
+  background: rgb(255 255 255 / 79%);
+  border-radius: 2px;
+  box-shadow: rgb(0 0 0 / 19%) 0px 10px 20px, rgb(0 0 0 / 23%) 0px 6px 6px;
+  box-shadow: rgb(50 50 93 / 25%) 0px 13px 27px -5px,
+    rgb(0 0 0 / 31%) 0px 8px 16px -8px;
 }
 .register {
   display: flex;
