@@ -1,9 +1,28 @@
 /** * Created by vouill on 11/13/17. */
 
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav
+    class="navbar navbar-expand-lg navbar-light "
+    style="
+    width: 100%;background: transparent;
+    box-shadow: rgb(0 0 0 / 10%) 0px 1px 2px 0px;"
+  >
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Test Appli</a>
+      <a class="navbar-brand" href="#" style="    margin-left: 30px;">
+        <img
+          src="../../assets/books.png"
+          alt=""
+          width="25px"
+          height="25px"
+          class="imgIcon"
+        />
+        <span class="text1">
+          Gestion
+        </span>
+        <span class="text2">
+          Scolaire
+        </span>
+      </a>
       <button
         class="navbar-toggler"
         type="button"
@@ -15,70 +34,131 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <div
+        class="collapse navbar-collapse"
+        id="navbarSupportedContent"
+        style="    flex-grow: 0;gap: 80px;"
+      >
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 linkP" style="gap: 18px;">
           <li class="nav-item">
-            <router-link to="/" class="nav-link">Home</router-link>
+            <router-link to="/" class="nav-link">ACCUEIL</router-link>
           </li>
           <li class="nav-item">
             <router-link to="/professeur" class="nav-link"
-              >Professeur</router-link
+              >PROFESSEUR</router-link
             >
-            <!-- <a class="nav-link" href="#">Professeur</a> -->
           </li>
           <li class="nav-item">
-            <router-link to="/etudiant" class="nav-link">Etudiant</router-link>
+            <router-link to="/etudiant" class="nav-link">ETUDIANT</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/matiere" class="nav-link">Matiere</router-link>
+            <router-link to="/matiere" class="nav-link">MATIERE</router-link>
+          </li>
+
+          <li class="nav-item liCustum">
+            <div class="bg-icon-social">
+              <img src="../../assets/iconSocial/fb.png" alt="" width="25px" />
+              <img
+                src="../../assets/iconSocial/github.png"
+                alt=""
+                width="25px"
+              />
+              <img
+                src="../../assets/iconSocial/messenger.png"
+                alt=""
+                width="25px"
+              />
+            </div>
           </li>
         </ul>
-        <ul>
-          <li v-if="isProfileLoaded">
-            <router-link to="/account">{{ name }}</router-link>
-          </li>
-          <li v-if="isAuthenticated" @click="logout">
-            <span class="logout">Logout</span>
-          </li>
-          <li v-if="!isAuthenticated && !authLoading">
-            <router-link to="/login">Login</router-link>
-          </li>
-        </ul>
+        <!-- <div class="accountIcon">?</div> -->
       </div>
     </div>
   </nav>
 </template>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Shadows+Into+Light?family=Passion+One?family=Dancing+Script&display=swap");
+.imgIcon {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  left: 5px;
+  top: 5px;
+}
+.accountIcon {
+  font-family: "Passion One", cursive;
+  color: rgb(255, 255, 255);
+  background: #658e59;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: relative;
+  right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: rgb(50 50 93 / 25%) 0px 2px 5px -1px,
+    rgb(0 0 0 / 30%) 0px 1px 3px -1px;
+  cursor: pointer;
+}
+.bg-icon-social {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  border: 1px solid #d7d2d230;
+  border-radius: 14px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+.liCustum {
+  display: flex;
+  align-items: center;
+  width: 110px;
+}
 a {
   color: black;
   text-decoration: none;
+  font-family: "Nunito", sans-serif;
 }
+.text1 {
+}
+.text2 {
+  font-size: 20px;
+  color: #3bee52f0;
+}
+
 .navigation {
   display: flex;
   color: white;
   align-items: center;
   background-color: #ffa035;
   padding: 5px;
-
-  ul {
-    display: flex;
-    &:first-child {
-      flex-grow: 1;
-    }
-    li {
-      padding-right: 1em;
-    }
-  }
+}
+.navigation ul {
+  display: flex;
+}
+.navigation ul::first-child {
+  flex-grow: 1;
+}
+.navigation ul li {
+  padding-right: 1em;
 }
 .brand {
   display: flex;
   align-items: center;
 }
-.logout {
+/* .logout {
   &:hover {
     cursor: pointer;
   }
+} */
+.linkP li a.router-link-exact-active {
+  background-color: #87878726;
+  border-right: 3px solid black;
+  border-color: #198754bf;
+  border-radius: 6px;
 }
 </style>
 

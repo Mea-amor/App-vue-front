@@ -137,7 +137,7 @@ export default {
     } else {
       this.namebtn = "Enregistrer";
       this.nametitle = "Ajout";
-      console.log("monted this : ", this.currentIndex);
+      // console.log("monted this : ", this.currentIndex);
     }
   }
 };

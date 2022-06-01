@@ -31,9 +31,7 @@
         <option value="A">A</option>
         <option value="B">B</option>
       </select>
-      <!-- <div class="text-danger " v-if="Invalid">
-        Email ou mot de passe invalide
-      </div> -->
+
       <hr />
       <div class="d-flex">
         <button type="submit" class="btn btn-success flex-fill">
@@ -111,8 +109,7 @@ export default {
           });
       } else {
         ProfesseurDataService.create(data)
-          .then(response => {
-            this.professeurs.push(response.data.data);
+          .then(() => {
             this.$store.dispatch("addToFavorites", {
               status: true,
               message: "Ajout Professeur avec succée",
@@ -124,8 +121,7 @@ export default {
             console.log(e);
           });
       }
-      this.$emit("newValue", false);
-      // this.$router.push("/professeur");
+      this.$emit("newValue", true);
     },
     getByidEtudiant: async function() {},
     cancel: function() {

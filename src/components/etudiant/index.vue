@@ -4,6 +4,7 @@
 </style>
 <template>
   <div class="back">
+    <router-view></router-view>
     <div class="table-div seconBack">
       <button class="btn btn-success btn-pers" @click="showAddFunction">
         Ajout d'un etudiant
@@ -25,6 +26,7 @@
           v-if="isDelete"
           @deleteToogle="toggleDelete"
           @confirmToogle="destroyOne"
+          value="etudiant"
         />
         <div class="position-relative" style="min-height: 105px;">
           <table class="table table-bordered">
@@ -82,7 +84,6 @@
                     />
                   </div>
                 </th>
-                <!-- @testValue="test" -->
 
                 <th scope="col" style="text-align: center;">Action</th>
               </tr>
@@ -114,13 +115,29 @@
                     />
                     Supprimer
                   </button>
+                  <button class="btn btn-secondary btn-sm btn-pers">
+                    <router-link
+                      :to="{
+                        name: 'EtudiantMatiere',
+                        params: { id: etudiant.id }
+                      }"
+                      class=" text-white"
+                    >
+                      <font-awesome-icon
+                        icon="fa-solid fa-eye"
+                        style="color:white;width: 15px;"
+                      />
+                    </router-link>
+                  </button>
                 </td>
               </tr>
               <tr
                 v-if="etudiants.length === 0"
                 style="text-align: center;height: 55px;"
               >
-                <td colspan="5"><span> Pas des données</span></td>
+                <td colspan="5">
+                  <span> {{ noData }}</span>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -171,6 +188,7 @@ export default {
   data() {
     return {
       etudiants: [],
+      noData: "",
       currentEtudiant: [],
       rows: null,
       currentIndex: null,
@@ -193,7 +211,6 @@ export default {
     };
   },
   methods: {
-    test() {},
     getRequestParams(page, pageSize, filter) {
       let params = {};
       if (page) {
@@ -223,14 +240,14 @@ export default {
       );
 
       this.isLoading = true;
-      // console.log("params : ", params);
       EtudiantDataService.getAll(params)
         .then(response => {
-          // console.log(response);
           this.etudiants = response.data.data.data;
           this.rows = response.data.data.total;
           this.isLoading = false;
           this.sortBy = false;
+          if (this.etudiants.length === 0) this.noData = "Pas des données";
+          else this.noData = "";
         })
         .catch(e => {
           console.log(e);
@@ -306,7 +323,7 @@ export default {
           data.isClick = true;
           this.retrieveEtudiant();
           //
-          console.log("After retrieveData");
+          // console.log("After retrieveData");
         }
         if (value !== data.type) {
           data.isAsc = false;

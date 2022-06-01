@@ -9,7 +9,7 @@
         required
         v-model="numero"
         type="text"
-        placeholder="Numero etudiant"
+        placeholder="Numero matiere"
         class="form-control"
         id="exampleFormControlInput1"
       />
@@ -18,7 +18,7 @@
         required
         v-model="libelle"
         type="text"
-        placeholder="Nom etudiant"
+        placeholder="Nom matiere"
         class="form-control"
       />
       <label class="form-label">coefficient</label>
@@ -28,9 +28,7 @@
         type="number"
         class="form-control"
       />
-      <!-- <div class="text-danger " v-if="Invalid">
-        Email ou mot de passe invalide
-      </div> -->
+
       <hr />
       <div class="d-flex">
         <button type="submit" class="btn btn-success flex-fill">
@@ -89,8 +87,14 @@ export default {
       if (this.nametitle === "Modication") {
         MatiereDataService.update(this.currentIndex[1], data)
           .then(response => {
-            console.log(response.data.data);
+            // console.log(response.data.data);
             this.matieres.splice(this.currentIndex[0], 1, response.data.data);
+            this.$store.dispatch("addToFavorites", {
+              status: true,
+              message: "Modification d'un matiere  avec succée",
+              nameIcon: "SuccessIcon.png",
+              success: true
+            });
           })
           .catch(e => {
             console.log(e);
@@ -98,17 +102,21 @@ export default {
       } else {
         MatiereDataService.create(data)
           .then(response => {
-            this.matieres.push(response.data.data);
+            // this.matieres.push(response.data.data);
+            this.$store.dispatch("addToFavorites", {
+              status: true,
+              message: "Ajout d'un matiere avec succée",
+              nameIcon: "SuccessIcon.png",
+              success: true
+            });
           })
           .catch(e => {
             console.log(e);
           });
       }
-      console.log("test");
-      this.$emit("newValue", false);
+      this.$emit("newValue", true);
       // this.$router.push("/matiere");
     },
-    getByidMatiere: async function() {},
     cancel: function() {
       this.$emit("newValue", false);
     }
@@ -126,7 +134,7 @@ export default {
     } else {
       this.namebtn = "Enregistrer";
       this.nametitle = "Ajout";
-      console.log("monted this : ", this.currentIndex);
+      // console.log("monted this : ", this.currentIndex);
     }
   }
 };
