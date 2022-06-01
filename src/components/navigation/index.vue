@@ -8,8 +8,15 @@
     box-shadow: rgb(0 0 0 / 10%) 0px 1px 2px 0px;"
   >
     <div class="container-fluid">
-      <a class="navbar-brand" href="#" style="    margin-left: 30px;"
-        ><span class="text1">
+      <a class="navbar-brand" href="#" style="    margin-left: 30px;">
+        <img
+          src="../../assets/books.png"
+          alt=""
+          width="25px"
+          height="25px"
+          class="imgIcon"
+        />
+        <span class="text1">
           Gestion
         </span>
         <span class="text2">
@@ -47,59 +54,106 @@
           <li class="nav-item">
             <router-link to="/matiere" class="nav-link">MATIERE</router-link>
           </li>
-        </ul>
-        <ul>
-          <li v-if="isProfileLoaded">
-            <router-link to="/account">{{ name }}</router-link>
+
+          <li class="nav-item liCustum">
+            <div class="bg-icon-social">
+              <img src="../../assets/iconSocial/fb.png" alt="" width="25px" />
+              <img
+                src="../../assets/iconSocial/github.png"
+                alt=""
+                width="25px"
+              />
+              <img
+                src="../../assets/iconSocial/messenger.png"
+                alt=""
+                width="25px"
+              />
+            </div>
           </li>
         </ul>
+        <!-- <div class="accountIcon">?</div> -->
       </div>
     </div>
   </nav>
 </template>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 @import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Shadows+Into+Light&display=swap");
-.text1 {
-  font-family: "Pacifico", cursive;
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Shadows+Into+Light?family=Passion+One?family=Dancing+Script&display=swap");
+.imgIcon {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  left: 5px;
+  top: 5px;
 }
-.text2 {
-  font-family: "Shadows Into Light", cursive;
-  font-size: 20px;
-  color: #3bee52f0;
+.accountIcon {
+  font-family: "Passion One", cursive;
+  color: rgb(255, 255, 255);
+  background: #658e59;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: relative;
+  right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: rgb(50 50 93 / 25%) 0px 2px 5px -1px,
+    rgb(0 0 0 / 30%) 0px 1px 3px -1px;
+  cursor: pointer;
+}
+.bg-icon-social {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  border: 1px solid #d7d2d230;
+  border-radius: 14px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+.liCustum {
+  display: flex;
+  align-items: center;
+  width: 110px;
 }
 a {
   color: black;
   text-decoration: none;
   font-family: "Nunito", sans-serif;
 }
+.text1 {
+}
+.text2 {
+  font-size: 20px;
+  color: #3bee52f0;
+}
+
 .navigation {
   display: flex;
   color: white;
   align-items: center;
   background-color: #ffa035;
   padding: 5px;
-
-  ul {
-    display: flex;
-    &:first-child {
-      flex-grow: 1;
-    }
-    li {
-      padding-right: 1em;
-    }
-  }
+}
+.navigation ul {
+  display: flex;
+}
+.navigation ul::first-child {
+  flex-grow: 1;
+}
+.navigation ul li {
+  padding-right: 1em;
 }
 .brand {
   display: flex;
   align-items: center;
 }
-.logout {
+/* .logout {
   &:hover {
     cursor: pointer;
   }
-}
+} */
 .linkP li a.router-link-exact-active {
   background-color: #87878726;
   border-right: 3px solid black;

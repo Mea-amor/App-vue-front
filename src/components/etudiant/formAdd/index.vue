@@ -104,6 +104,8 @@ export default {
             console.log(e);
           });
       } else {
+        // console.log("add modif");
+
         EtudiantDataService.create(data)
           .then(response => {
             this.$store.dispatch("addToFavorites", {
